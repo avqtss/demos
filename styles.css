@@ -1,88 +1,210 @@
 :root {
   color-scheme: light;
-  --ink: #24343d;
+  --ink: #2f2f2f;
   --muted: #617f8c;
-  --line: #d9e1e4;
   --accent: #de8000;
+  --line: #d9e1e4;
+  --soft: #f5f6f7;
   --paper: #ffffff;
-  --soft: #f6f8f8;
+  --max-width: 1180px;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  background: var(--paper);
+}
+
 body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Google Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.55;
 }
 
-main {
-  width: min(920px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 64px 0 80px;
+.container.is-max-desktop {
+  max-width: var(--max-width) !important;
 }
 
-header {
-  padding-bottom: 32px;
-  border-bottom: 2px solid var(--ink);
+.project-hero .hero-body {
+  padding-top: 4.25rem;
+  padding-bottom: 3.75rem;
 }
 
-.eyebrow {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-size: 0.8rem;
+.publication-title {
+  max-width: 1050px;
+  margin: 0 auto 1rem;
+  color: var(--ink);
+  font-size: 3.15rem;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.publication-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.section {
+  padding: 3.5rem 1.5rem;
+}
+
+.section.is-light,
+.examples-section {
+  background: var(--soft);
+}
+
+.title.is-3 {
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+.abstract-copy {
+  color: #363636;
+  font-size: 1.08rem;
+  line-height: 1.72;
+}
+
+.abstract-copy p {
+  margin-bottom: 0;
+}
+
+.overview-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.task-flow {
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) 54px minmax(180px, 0.72fr) 54px minmax(210px, 0.9fr);
+  align-items: center;
+  width: min(960px, 100%);
+  margin: 2rem auto 0;
+}
+
+.flow-block {
+  display: flex;
+  min-height: 152px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.34rem;
+  padding: 1.35rem 1.25rem;
+  border: 2px solid #859196;
+  border-radius: 8px;
+  background: #fafafa;
+  color: var(--ink);
+  font-size: 1.04rem;
+}
+
+.flow-block strong {
+  font-size: 1.24rem;
+}
+
+.flow-label {
+  color: var(--muted);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-h1,
-h2,
-p {
-  margin-top: 0;
+.model-block {
+  min-height: 116px;
+  border-color: var(--accent);
+  background: #fffaf4;
 }
 
-h1 {
-  margin-bottom: 8px;
-  font-size: clamp(2.4rem, 8vw, 4.8rem);
+.model-block strong {
+  font-size: 1.7rem;
+}
+
+.output-block {
+  border-color: var(--accent);
+  background: #fffaf4;
+}
+
+.flow-arrow {
+  color: var(--muted);
+  font-size: 2.3rem;
+  font-weight: 700;
   line-height: 1;
 }
 
-.subtitle {
-  max-width: 700px;
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 1.15rem;
+.target-arrow {
+  color: var(--accent);
 }
 
-section {
-  padding: 32px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-h2 {
-  margin-bottom: 12px;
-  font-size: 1.25rem;
-}
-
-section p {
-  max-width: 720px;
-  margin-bottom: 0;
-}
-
-.status {
-  padding: 18px 20px;
-  color: var(--muted);
-  background: var(--soft);
+.examples-status {
+  width: min(680px, 100%);
+  margin: 0 auto;
+  padding: 1.35rem 1.5rem;
   border-left: 4px solid var(--accent);
+  background: var(--paper);
+  color: #5f6365;
+  font-size: 1.05rem;
+  text-align: left;
 }
 
-@media (max-width: 600px) {
-  main {
-    width: min(100% - 28px, 920px);
-    padding-top: 40px;
+.footer {
+  padding: 2.25rem 1.5rem;
+  background: var(--paper);
+}
+
+.footer-copy {
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.footer-copy a {
+  color: #3273dc;
+}
+
+.footer-copy a:hover,
+.footer-copy a:focus {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .project-hero .hero-body {
+    padding-top: 3rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .publication-title {
+    font-size: 2.15rem;
+  }
+
+  .publication-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .section {
+    padding: 2.75rem 1.25rem;
+  }
+
+  .abstract-copy {
+    font-size: 1rem;
+    text-align: left !important;
+  }
+
+  .task-flow {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    width: min(430px, 100%);
+  }
+
+  .flow-block,
+  .model-block {
+    min-height: auto;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+    font-size: 2rem;
   }
 }

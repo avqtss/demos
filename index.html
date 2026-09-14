@@ -1,33 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="referrer" content="no-referrer">
-  <title>AV-QTSS Demo</title>
+  <meta name="description" content="AV-QTSS project page">
+  <title>AV-QTSS: Class-Query Target Sound Spatialization</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,600,700|Noto+Sans:400,600,700|Castoro:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <main>
-    <header>
-      <p class="eyebrow">Research demo</p>
-      <h1>AV-QTSS</h1>
-      <p class="subtitle">Class-query target sound spatialization in multi-source 360&deg; videos</p>
-    </header>
-
-    <section aria-labelledby="overview-title">
-      <h2 id="overview-title">Overview</h2>
-      <p>
-        Given a 360&deg; video, a multi-source mono mixture, and a sound-class query,
-        AV-QTSS renders the queried source alone in first-order Ambisonics.
-      </p>
+    <section class="hero project-hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title publication-title">
+                AV-QTSS: Class-Query Target Sound Spatialization in Multi-Source 360&deg; Videos
+              </h1>
+              <p class="publication-subtitle">Audio-Visual Query-Conditioned Target Sound Spatialization</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section aria-labelledby="examples-title">
-      <h2 id="examples-title">Audio-visual examples</h2>
-      <p class="status">Demo examples will be added here.</p>
+    <section class="section is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified abstract-copy">
+              <p>
+                Spatial audio is central to immersive 360&deg; media, yet a recording offers no control over individual sources. We introduce Audio-Visual Query-Conditioned Target Sound Spatialization (AV-QTSS), which generates the first-order Ambisonics (FOA) signal of a queried source from the omnidirectional channel of a multi-source mixture, a 360&deg; video, and a class from the 13-class DCASE sound-event ontology. The mixture carries no spatial cues, so direction must come from the video, where several objects may sound at once. We propose a query-conditioned dense binding localizer that predicts a spherical probability map without enumerating candidates, coupled to the renderer so both are optimized jointly. Experiments with one to four concurrent sources show improved localization and spatial accuracy, and the localizer transfers to real 360&deg; recordings after adaptation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section overview-section">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Overview</h2>
+        <div class="task-flow" role="img" aria-label="A 360-degree video, multi-source mono mixture, and class query are processed by AV-QTSS to produce target first-order Ambisonics.">
+          <div class="flow-block inputs-block">
+            <span class="flow-label">Inputs</span>
+            <strong>360&deg; video</strong>
+            <span>Multi-source mono mixture</span>
+            <span>Class query</span>
+          </div>
+          <span class="flow-arrow" aria-hidden="true">&rarr;</span>
+          <div class="flow-block model-block">
+            <strong>AV-QTSS</strong>
+          </div>
+          <span class="flow-arrow target-arrow" aria-hidden="true">&rarr;</span>
+          <div class="flow-block output-block">
+            <span class="flow-label">Output</span>
+            <strong>Target FOA</strong>
+            <span>Queried source only</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section is-light examples-section">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Audio-Visual Examples</h2>
+        <p class="examples-status">Examples will be added here.</p>
+      </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered footer-copy">
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>,
+              which was adopted from the
+              <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>
+              project page.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
