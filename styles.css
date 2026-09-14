@@ -54,8 +54,7 @@ body {
   padding: 3.5rem 1.5rem;
 }
 
-.section.is-light,
-.examples-section {
+.section.is-light {
   background: var(--soft);
 }
 
@@ -79,75 +78,21 @@ body {
   padding-bottom: 4rem;
 }
 
-.task-flow {
-  display: grid;
-  grid-template-columns: minmax(230px, 1fr) 54px minmax(180px, 0.72fr) 54px minmax(210px, 0.9fr);
-  align-items: center;
-  width: min(960px, 100%);
+.framework-figure {
+  width: min(1120px, 100%);
   margin: 2rem auto 0;
 }
 
-.flow-block {
-  display: flex;
-  min-height: 152px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.34rem;
-  padding: 1.35rem 1.25rem;
-  border: 2px solid #859196;
-  border-radius: 8px;
-  background: #fafafa;
-  color: var(--ink);
-  font-size: 1.04rem;
+.framework-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.flow-block strong {
-  font-size: 1.24rem;
-}
-
-.flow-label {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.model-block {
-  min-height: 116px;
-  border-color: var(--accent);
-  background: #fffaf4;
-}
-
-.model-block strong {
-  font-size: 1.7rem;
-}
-
-.output-block {
-  border-color: var(--accent);
-  background: #fffaf4;
-}
-
-.flow-arrow {
-  color: var(--muted);
-  font-size: 2.3rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.target-arrow {
-  color: var(--accent);
-}
-
-.examples-status {
-  width: min(680px, 100%);
-  margin: 0 auto;
-  padding: 1.35rem 1.5rem;
-  border-left: 4px solid var(--accent);
-  background: var(--paper);
-  color: #5f6365;
-  font-size: 1.05rem;
-  text-align: left;
+.framework-figure figcaption {
+  margin-top: 1rem;
+  color: #666666;
+  font-size: 1rem;
 }
 
 .footer {
@@ -192,19 +137,11 @@ body {
     text-align: left !important;
   }
 
-  .task-flow {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-    width: min(430px, 100%);
+  .framework-figure {
+    margin-top: 1.5rem;
   }
 
-  .flow-block,
-  .model-block {
-    min-height: auto;
-  }
-
-  .flow-arrow {
-    transform: rotate(90deg);
-    font-size: 2rem;
+  .framework-figure figcaption {
+    font-size: 0.92rem;
   }
 }
