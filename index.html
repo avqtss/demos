@@ -56,6 +56,94 @@
         </figure>
       </div>
     </section>
+
+    <section class="section demo-section" id="demos">
+      <div class="container is-max-desktop">
+        <div class="demo-intro has-text-centered">
+          <h2 class="title is-3">Audio-Visual Demos</h2>
+          <p class="demo-lead">
+            Changing only the class query extracts and spatializes a different source from the same video and mono mixture.
+          </p>
+          <p class="listening-note"><strong>Headphones recommended.</strong> FOA signals are binaurally decoded for playback.</p>
+        </div>
+
+        <section class="demo-group" aria-labelledby="synthetic-title">
+          <div class="demo-group-heading">
+            <div>
+              <p class="dataset-label">Synthetic</p>
+              <h3 class="title is-4" id="synthetic-title">AV-QTSS-Syn</h3>
+            </div>
+            <p class="demo-group-copy">
+              Three-source scene: bell, door or cupboard, and water tap. Ground-truth target audio is available.
+            </p>
+          </div>
+
+          <div class="demo-grid">
+            <article class="demo-item">
+              <header class="demo-item-heading">
+                <span>Query</span>
+                <h4>Water tap</h4>
+              </header>
+              <video controls playsinline preload="metadata">
+                <source src="assets/demos/synthetic-water-tap.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <p class="demo-sequence">Mixture &rarr; ground-truth target &rarr; predicted target &rarr; FOA energy map</p>
+            </article>
+
+            <article class="demo-item">
+              <header class="demo-item-heading">
+                <span>Query</span>
+                <h4>Bell</h4>
+              </header>
+              <video controls playsinline preload="metadata">
+                <source src="assets/demos/synthetic-bell.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <p class="demo-sequence">Mixture &rarr; ground-truth target &rarr; predicted target &rarr; FOA energy map</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="demo-group" aria-labelledby="real-title">
+          <div class="demo-group-heading">
+            <div>
+              <p class="dataset-label real">Real recording</p>
+              <h3 class="title is-4" id="real-title">STAIRS26</h3>
+            </div>
+            <p class="demo-group-copy">
+              Two-source scene: musical instrument and male speech. Source-wise ground truth is unavailable.
+            </p>
+          </div>
+
+          <div class="demo-grid">
+            <article class="demo-item">
+              <header class="demo-item-heading">
+                <span>Query</span>
+                <h4>Musical instrument</h4>
+              </header>
+              <video controls playsinline preload="metadata">
+                <source src="assets/demos/stairs26-musical-instrument.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
+            </article>
+
+            <article class="demo-item">
+              <header class="demo-item-heading">
+                <span>Query</span>
+                <h4>Male speech</h4>
+              </header>
+              <video controls playsinline preload="metadata">
+                <source src="assets/demos/stairs26-male-speech.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
