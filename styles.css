@@ -163,6 +163,134 @@ body {
   line-height: 1.55;
 }
 
+.scene-list {
+  border-top: 1px solid var(--line);
+}
+
+.interactive-scene {
+  padding: 2.25rem 0 2.5rem;
+}
+
+.interactive-scene + .interactive-scene {
+  border-top: 1px solid var(--line);
+}
+
+.scene-heading {
+  display: flex;
+  gap: 1.25rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.scene-heading h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.scene-sources {
+  margin: 0;
+  color: #5d5d5d;
+  font-size: 0.96rem;
+  text-align: right;
+}
+
+.scene-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+  margin-bottom: 1.25rem;
+}
+
+.media-panel,
+.query-panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.media-label {
+  min-height: 2.8rem;
+  margin: 0;
+  padding: 0.75rem 0.9rem 0.7rem;
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.media-panel video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: #000000;
+  object-fit: contain;
+}
+
+.query-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.query-label {
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.query-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.query-tab {
+  min-height: 2.5rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #bcc8cd;
+  border-radius: 5px;
+  color: #3f5158;
+  background: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.query-tab:hover,
+.query-tab:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.query-tab[aria-selected="true"] {
+  border-color: var(--accent);
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.scene-outputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.scene-output {
+  overflow: hidden;
+}
+
+.scene-output.is-spatial {
+  border-color: #e8c28d;
+  background: var(--warm-soft);
+}
+
 .demo-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -281,6 +409,24 @@ body {
   .demo-group-heading {
     grid-template-columns: 1fr;
     gap: 0.65rem;
+  }
+
+  .scene-heading {
+    display: block;
+  }
+
+  .scene-sources {
+    margin-top: 0.25rem;
+    text-align: left;
+  }
+
+  .scene-controls,
+  .scene-outputs {
+    grid-template-columns: 1fr;
+  }
+
+  .query-panel {
+    padding: 1rem;
   }
 
   .demo-grid {

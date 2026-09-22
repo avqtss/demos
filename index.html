@@ -74,35 +74,11 @@
               <h3 class="title is-4" id="synthetic-title">AV-QTSS-Syn</h3>
             </div>
             <p class="demo-group-copy">
-              Three-source scene: bell, door or cupboard, and water tap. Ground-truth target audio is available.
+              Each scene keeps the video and mono mixture fixed while the class query selects the rendered target.
             </p>
           </div>
 
-          <div class="demo-grid">
-            <article class="demo-item">
-              <header class="demo-item-heading">
-                <span>Query</span>
-                <h4>Water tap</h4>
-              </header>
-              <video controls playsinline preload="metadata">
-                <source src="assets/demos/synthetic-water-tap.mp4" type="video/mp4">
-                Your browser does not support embedded video.
-              </video>
-              <p class="demo-sequence">Mixture &rarr; ground-truth target &rarr; predicted target &rarr; FOA energy map</p>
-            </article>
-
-            <article class="demo-item">
-              <header class="demo-item-heading">
-                <span>Query</span>
-                <h4>Bell</h4>
-              </header>
-              <video controls playsinline preload="metadata">
-                <source src="assets/demos/synthetic-bell.mp4" type="video/mp4">
-                Your browser does not support embedded video.
-              </video>
-              <p class="demo-sequence">Mixture &rarr; ground-truth target &rarr; predicted target &rarr; FOA energy map</p>
-            </article>
-          </div>
+          <div id="synthetic-scenes" class="scene-list" aria-live="polite"></div>
         </section>
 
         <section class="demo-group" aria-labelledby="real-title">
@@ -164,5 +140,6 @@
       </div>
     </div>
   </footer>
+  <script src="demo.js"></script>
 </body>
 </html>
