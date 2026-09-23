@@ -226,11 +226,12 @@ const renderScene = (scene) => {
 
   const queryLabel = document.createElement("p");
   queryLabel.className = "query-label";
-  queryLabel.textContent = "Class query";
+  queryLabel.textContent = "Class query:";
 
   const tabs = document.createElement("div");
   tabs.className = "query-tabs";
   tabs.setAttribute("role", "tablist");
+  tabs.setAttribute("aria-orientation", "vertical");
   tabs.setAttribute("aria-label", `${scene.title} class queries`);
 
   queryPanel.append(queryLabel, tabs);
@@ -282,9 +283,12 @@ const renderScene = (scene) => {
     button.textContent = query.label;
     button.addEventListener("click", () => selectQuery(query, button));
     button.addEventListener("keydown", (event) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      const previousKeys = ["ArrowLeft", "ArrowUp"];
+      const nextKeys = ["ArrowRight", "ArrowDown"];
+      if (!previousKeys.includes(event.key) && !nextKeys.includes(event.key)) return;
+      event.preventDefault();
       const buttons = [...tabs.querySelectorAll(".query-tab")];
-      const offset = event.key === "ArrowRight" ? 1 : -1;
+      const offset = nextKeys.includes(event.key) ? 1 : -1;
       const nextIndex = (buttons.indexOf(button) + offset + buttons.length) % buttons.length;
       buttons[nextIndex].focus();
       buttons[nextIndex].click();

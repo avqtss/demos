@@ -262,8 +262,9 @@ body {
 
 .query-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.55rem;
+  align-items: flex-start;
 }
 
 .query-tab {
@@ -277,6 +278,7 @@ body {
   font-size: 0.92rem;
   font-weight: 700;
   line-height: 1.2;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.18s ease;
 }
