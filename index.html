@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,600,700|Noto+Sans:400,600,700|Castoro:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="styles.css?v=20260923-flat-energy-3">
+  <link rel="stylesheet" href="styles.css?v=20260923-overview-4">
 </head>
 
 <body>
@@ -39,7 +39,7 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified abstract-copy">
               <p>
-                Spatial audio is central to immersive 360&deg; media, yet a recording offers no control over individual sources. We introduce Audio-Visual Query-Conditioned Target Sound Spatialization (AV-QTSS), which generates the first-order Ambisonics (FOA) signal of a queried source from the omnidirectional channel of a multi-source mixture, a 360&deg; video, and a class from the 13-class DCASE sound-event ontology. The mixture carries no spatial cues, so direction must come from the video, where several objects may sound at once. We propose a query-conditioned dense binding localizer that predicts a spherical probability map without enumerating candidates, coupled to the renderer so both are optimized jointly. Experiments with one to four concurrent sources show improved localization and spatial accuracy, and the localizer transfers to real 360&deg; recordings after adaptation.
+                Spatial audio is central to immersive 360&deg; media, yet existing audio-visual spatialization renders the scene as a whole, leaving no control over an individual source. We introduce Audio-Visual Query-conditioned Target Sound Spatialization (AV-QTSS): given a monaural multi-source mixture, a 360&deg; video and a class query from the 13-class DCASE sound-event ontology, it generates the first-order Ambisonics (FOA) signal of the queried source alone. The omnidirectional mixture contains no explicit spatial cues, so direction has to be inferred from the video, where several objects may sound at once. We propose a query-conditioned dense binding localizer that predicts a spherical probability map over the whole scene, coupled to the renderer so both are optimized jointly. Experiments with one to four concurrent sources show improved localization and spatial accuracy relative to established methods and ablated variants, and the localizer transfers to real 360&deg; recordings after adaptation.
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@
       <div class="container is-max-desktop has-text-centered">
         <h2 class="title is-3">Overview</h2>
         <figure class="framework-figure">
-          <img src="assets/avqtss-framework.png" alt="The AV-QTSS framework, comprising a Query Separator, QDB Localizer, and FOA Renderer.">
+          <img src="assets/avqtss-framework.png?v=20260923-overview-4" alt="The AV-QTSS framework, comprising a Query Separator, QDB Localizer, and FOA Renderer.">
           <figcaption>Overview of the proposed AV-QTSS framework.</figcaption>
         </figure>
       </div>

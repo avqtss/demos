@@ -123,13 +123,14 @@ body {
 }
 
 .toggle-btn {
-  padding: 12px 20px;
+  min-width: 210px;
+  padding: 13px 30px;
   border: 2px solid #6a6a6a;
   border-radius: 999px;
   color: #4a4a4a;
   background: #ffffff;
   font: inherit;
-  font-size: 15px;
+  font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.18s ease;
