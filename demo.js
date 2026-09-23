@@ -199,3 +199,37 @@ const sceneList = document.querySelector("#synthetic-scenes");
 if (sceneList) {
   syntheticScenes.forEach((scene) => sceneList.appendChild(renderScene(scene)));
 }
+
+const datasets = [
+  {
+    button: document.querySelector("#btn-stairs26"),
+    section: document.querySelector("#section-stairs26"),
+  },
+  {
+    button: document.querySelector("#btn-synthetic"),
+    section: document.querySelector("#section-synthetic"),
+  },
+];
+
+const selectDataset = (selectedDataset, shouldScroll = true) => {
+  datasets.forEach((dataset) => {
+    const selected = dataset === selectedDataset;
+    dataset.button.classList.toggle("active", selected);
+    dataset.button.setAttribute("aria-pressed", String(selected));
+    dataset.section.hidden = !selected;
+    if (!selected) {
+      dataset.section.querySelectorAll("video").forEach((video) => video.pause());
+    }
+  });
+
+  if (shouldScroll) {
+    selectedDataset.section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
+if (datasets.every(({ button, section }) => button && section)) {
+  datasets.forEach((dataset) => {
+    dataset.button.addEventListener("click", () => selectDataset(dataset));
+  });
+  selectDataset(datasets[0], false);
+}

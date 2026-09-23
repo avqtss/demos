@@ -57,31 +57,31 @@
       </div>
     </section>
 
-    <section class="section demo-section" id="demos">
-      <div class="container is-max-desktop">
-        <div class="demo-intro has-text-centered">
-          <h2 class="title is-3">Audio-Visual Demos</h2>
-          <p class="demo-lead">
-            Changing only the class query extracts and spatializes a different source from the same video and mono mixture.
-          </p>
-          <p class="listening-note"><strong>Headphones recommended.</strong> FOA signals are binaurally decoded for playback.</p>
-        </div>
+    <section class="hero is-small is-light listening-guide" id="demos">
+      <div class="hero-body">
+        <div class="container is-max-desktop has-text-centered">
+          <h2 class="title is-3">Guidelines for Listening Demo Videos</h2>
+          <ul class="listening-guidelines">
+            <li>Please use headphones for the best audio experience.</li>
+            <li>Please use <strong>Play</strong> to start or pause a demo and the progress bar to replay it.</li>
+            <li>Please click different <strong>Query</strong> buttons to extract and spatialize targets from the same scene.</li>
+          </ul>
 
-        <section class="demo-group" aria-labelledby="synthetic-title">
-          <div class="demo-group-heading">
-            <div>
-              <p class="dataset-label">Synthetic</p>
-              <h3 class="title is-4" id="synthetic-title">AV-QTSS-Syn</h3>
-            </div>
-            <p class="demo-group-copy">
-              Each scene keeps the video and mono mixture fixed while the class query selects the rendered target.
-            </p>
+          <div class="toggle-wrap" aria-label="Demo dataset">
+            <button id="btn-stairs26" class="toggle-btn active" type="button" aria-controls="section-stairs26" aria-pressed="true">
+              Show STAIRS26 Examples
+            </button>
+            <button id="btn-synthetic" class="toggle-btn" type="button" aria-controls="section-synthetic" aria-pressed="false">
+              Show AV-QTSS-Syn Examples
+            </button>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div id="synthetic-scenes" class="scene-list" aria-live="polite"></div>
-        </section>
-
-        <section class="demo-group" aria-labelledby="real-title">
+    <section class="section demo-section">
+      <div class="container is-max-desktop">
+        <section class="demo-group dataset-section" id="section-stairs26" aria-labelledby="real-title">
           <div class="demo-group-heading">
             <div>
               <p class="dataset-label real">Real recording</p>
@@ -117,6 +117,20 @@
               <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
             </article>
           </div>
+        </section>
+
+        <section class="demo-group dataset-section" id="section-synthetic" aria-labelledby="synthetic-title" hidden>
+          <div class="demo-group-heading">
+            <div>
+              <p class="dataset-label">Synthetic</p>
+              <h3 class="title is-4" id="synthetic-title">AV-QTSS-Syn</h3>
+            </div>
+            <p class="demo-group-copy">
+              Each scene keeps the video and mono mixture fixed while the class query selects the rendered target.
+            </p>
+          </div>
+
+          <div id="synthetic-scenes" class="scene-list" aria-live="polite"></div>
         </section>
       </div>
     </section>
