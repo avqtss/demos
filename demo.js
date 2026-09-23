@@ -1,7 +1,7 @@
 const syntheticScenes = [
   {
     id: "synthetic-k2",
-    title: "2-source scene",
+    title: "Example #1",
     sources: "Laughter, music",
     mixture: "assets/demos/synthetic/k2/mixture.mp4",
     queries: [
@@ -23,7 +23,7 @@ const syntheticScenes = [
   },
   {
     id: "synthetic-k3",
-    title: "3-source scene",
+    title: "Example #2",
     sources: "Bell, door or cupboard, water tap",
     mixture: "assets/demos/synthetic/k3/mixture.mp4",
     queries: [
@@ -52,7 +52,7 @@ const syntheticScenes = [
   },
   {
     id: "synthetic-k4",
-    title: "4-source scene",
+    title: "Example #3",
     sources: "Bell, telephone, laughter, domestic sounds",
     mixture: "assets/demos/synthetic/k4/mixture.mp4",
     queries: [
@@ -122,7 +122,7 @@ const renderScene = (scene) => {
   heading.className = "scene-heading";
   heading.innerHTML = `
     <h4>${scene.title}</h4>
-    <p class="scene-sources"><strong>Scene sources:</strong> ${scene.sources}</p>
+    <p class="scene-sources"><strong>Sources:</strong> ${scene.sources}</p>
   `;
 
   const controls = document.createElement("div");

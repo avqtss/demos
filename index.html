@@ -82,51 +82,54 @@
     <section class="section demo-section">
       <div class="container is-max-desktop">
         <section class="demo-group dataset-section" id="section-stairs26" aria-labelledby="real-title">
-          <div class="demo-group-heading">
-            <div>
-              <p class="dataset-label real">Real recording</p>
-              <h3 class="title is-4" id="real-title">STAIRS26</h3>
-            </div>
-            <p class="demo-group-copy">
-              Two-source scene: musical instrument and male speech. Source-wise ground truth is unavailable.
+          <div class="dataset-heading has-text-centered">
+            <h3 class="title is-3" id="real-title">STAIRS26 Examples</h3>
+            <p class="section-note">
+              NOTE: The video and mono mixture remain fixed while the class query selects the rendered target; source-wise ground truth is unavailable.
             </p>
           </div>
 
-          <div class="demo-grid">
-            <article class="demo-item">
-              <header class="demo-item-heading">
-                <span>Query</span>
-                <h4>Musical instrument</h4>
+          <div class="scene-list">
+            <article class="interactive-scene">
+              <header class="scene-heading">
+                <h4>Example #1</h4>
+                <p class="scene-sources"><strong>Sources:</strong> Musical instrument, male speech</p>
               </header>
-              <video controls playsinline preload="metadata">
-                <source src="assets/demos/stairs26-musical-instrument.mp4" type="video/mp4">
-                Your browser does not support embedded video.
-              </video>
-              <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
-            </article>
 
-            <article class="demo-item">
-              <header class="demo-item-heading">
-                <span>Query</span>
-                <h4>Male speech</h4>
-              </header>
-              <video controls playsinline preload="metadata">
-                <source src="assets/demos/stairs26-male-speech.mp4" type="video/mp4">
-                Your browser does not support embedded video.
-              </video>
-              <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
+              <div class="demo-grid">
+                <article class="demo-item">
+                  <header class="demo-item-heading">
+                    <span>Query</span>
+                    <h4>Musical instrument</h4>
+                  </header>
+                  <video controls playsinline preload="metadata">
+                    <source src="assets/demos/stairs26-musical-instrument.mp4" type="video/mp4">
+                    Your browser does not support embedded video.
+                  </video>
+                  <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
+                </article>
+
+                <article class="demo-item">
+                  <header class="demo-item-heading">
+                    <span>Query</span>
+                    <h4>Male speech</h4>
+                  </header>
+                  <video controls playsinline preload="metadata">
+                    <source src="assets/demos/stairs26-male-speech.mp4" type="video/mp4">
+                    Your browser does not support embedded video.
+                  </video>
+                  <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
+                </article>
+              </div>
             </article>
           </div>
         </section>
 
         <section class="demo-group dataset-section" id="section-synthetic" aria-labelledby="synthetic-title" hidden>
-          <div class="demo-group-heading">
-            <div>
-              <p class="dataset-label">Synthetic</p>
-              <h3 class="title is-4" id="synthetic-title">AV-QTSS-Syn</h3>
-            </div>
-            <p class="demo-group-copy">
-              Each scene keeps the video and mono mixture fixed while the class query selects the rendered target.
+          <div class="dataset-heading has-text-centered">
+            <h3 class="title is-3" id="synthetic-title">AV-QTSS-Syn Examples</h3>
+            <p class="section-note">
+              NOTE: Each scene keeps the video and mono mixture fixed while the class query selects the rendered target.
             </p>
           </div>
 
