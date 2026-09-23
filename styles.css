@@ -216,9 +216,12 @@ body {
 .media-panel,
 .query-panel {
   min-width: 0;
+  background: transparent;
+}
+
+.media-panel {
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: transparent;
 }
 
 .media-label {
