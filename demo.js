@@ -4,7 +4,6 @@ const syntheticScenes = [
   {
     id: "synthetic-k2",
     title: "Example #1",
-    sources: "Laughter, music",
     initialYaw: 130,
     mixture: "assets/demos/synthetic/k2/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
@@ -32,7 +31,6 @@ const syntheticScenes = [
   {
     id: "synthetic-k3",
     title: "Example #2",
-    sources: "Bell, door or cupboard, water tap",
     mixture: "assets/demos/synthetic/k3/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3/audio/mixture-w.wav",
     queries: [
@@ -68,7 +66,6 @@ const syntheticScenes = [
   {
     id: "synthetic-k4",
     title: "Example #3",
-    sources: "Bell, telephone, laughter, domestic sounds",
     initialYaw: -59,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
@@ -140,15 +137,82 @@ const createFlatVideo = (label) => {
   heading.className = "media-label";
   heading.textContent = label;
 
+  const player = document.createElement("div");
+  player.className = "flat-player";
+
   const video = document.createElement("video");
   video.className = "flat-video";
-  video.controls = true;
   video.playsInline = true;
   video.preload = "metadata";
   video.setAttribute("aria-label", label);
   video.appendChild(document.createTextNode("Your browser does not support embedded video."));
 
-  panel.append(heading, video);
+  const controls = document.createElement("div");
+  controls.className = "flat-player-controls";
+
+  const rewindButton = document.createElement("button");
+  rewindButton.className = "flat-player-button";
+  rewindButton.type = "button";
+  rewindButton.textContent = "Rewind";
+
+  const playButton = document.createElement("button");
+  playButton.className = "flat-player-button";
+  playButton.type = "button";
+  playButton.textContent = "Play";
+
+  const fullscreenButton = document.createElement("button");
+  fullscreenButton.className = "flat-player-button flat-player-fullscreen";
+  fullscreenButton.type = "button";
+  fullscreenButton.title = "Fullscreen";
+  fullscreenButton.setAttribute("aria-label", "Fullscreen");
+  fullscreenButton.textContent = "\u26F6";
+
+  const syncPlayState = () => {
+    playButton.textContent = video.paused ? "Play" : "Pause";
+  };
+
+  playButton.addEventListener("click", async () => {
+    try {
+      if (video.paused) {
+        await video.play();
+      } else {
+        video.pause();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  rewindButton.addEventListener("click", async () => {
+    try {
+      video.currentTime = 0;
+      await video.play();
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  fullscreenButton.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else if (player.requestFullscreen) {
+        await player.requestFullscreen();
+      } else if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  video.addEventListener("play", syncPlayState);
+  video.addEventListener("pause", syncPlayState);
+  video.addEventListener("ended", syncPlayState);
+
+  controls.append(rewindButton, playButton);
+  player.append(video, controls, fullscreenButton);
+  panel.append(heading, player);
   return { panel, video };
 };
 
@@ -203,10 +267,9 @@ const renderScene = (scene) => {
 
   const heading = document.createElement("header");
   heading.className = "scene-heading";
-  heading.innerHTML = `
-    <h4>${scene.title}</h4>
-    <p class="scene-sources"><strong>Sources:</strong> ${scene.sources}</p>
-  `;
+  const headingTitle = document.createElement("h4");
+  headingTitle.textContent = `${scene.title} (${scene.queries.length} sources)`;
+  heading.appendChild(headingTitle);
 
   const controls = document.createElement("div");
   controls.className = "scene-controls";
