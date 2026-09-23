@@ -156,11 +156,21 @@
 
     const getParameters = () => {
       const parameters = new URLSearchParams(window.location.search);
+      const yaw = Number(parameters.get("yaw") || 0);
       return {
         video: parameters.get("video") || "",
         audio: parameters.get("audio") || "",
         label: parameters.get("label") || "360-degree audio demo",
+        yaw: Number.isFinite(yaw) ? yaw : 0,
+        version: parameters.get("v") || "",
       };
+    };
+
+    const withVersion = (value, version) => {
+      if (!version) return value;
+      const url = new URL(value, window.location.href);
+      url.searchParams.set("v", version);
+      return url.href;
     };
 
     const createFOAController = async (audioUrl, getCameraYaw) => {
@@ -235,8 +245,18 @@
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const { video: videoUrl, audio: audioUrl, label } = getParameters();
-        if (!videoUrl || !audioUrl) throw new Error("Missing video or audio parameter.");
+        const {
+          video: rawVideoUrl,
+          audio: rawAudioUrl,
+          label,
+          yaw,
+          version,
+        } = getParameters();
+        if (!rawVideoUrl || !rawAudioUrl) {
+          throw new Error("Missing video or audio parameter.");
+        }
+        const videoUrl = withVersion(rawVideoUrl, version);
+        const audioUrl = withVersion(rawAudioUrl, version);
 
         const viewer = document.querySelector("#viewer");
         const loading = document.querySelector("#loading");
@@ -259,12 +279,12 @@
         video.setAttribute("aria-label", label);
         video.muted = true;
 
-        if (videoUrl.endsWith(".webm")) {
+        if (rawVideoUrl.endsWith(".webm")) {
           const webmSource = document.createElement("source");
           webmSource.src = videoUrl;
           webmSource.type = "video/webm";
           const mp4Source = document.createElement("source");
-          mp4Source.src = videoUrl.replace(/\.webm$/, ".mp4");
+          mp4Source.src = withVersion(rawVideoUrl.replace(/\.webm$/, ".mp4"), version);
           mp4Source.type = "video/mp4";
           video.append(webmSource, mp4Source);
         } else {
@@ -287,7 +307,20 @@
           scene.addEventListener("error", reject, { once: true });
         });
 
-        const getCameraYaw = () => camera.object3D ? camera.object3D.rotation.y : 0;
+        const lookControls = camera.components["look-controls"];
+        if (lookControls && lookControls.yawObject) {
+          lookControls.yawObject.rotation.y = yaw * Math.PI / 180;
+        } else if (camera.object3D) {
+          camera.object3D.rotation.y = yaw * Math.PI / 180;
+        }
+
+        const getCameraYaw = () => {
+          const controls = camera.components["look-controls"];
+          if (controls && controls.yawObject) {
+            return controls.yawObject.rotation.y;
+          }
+          return camera.object3D ? camera.object3D.rotation.y : 0;
+        };
         const getController = async () => {
           if (!controller) controller = await createFOAController(audioUrl, getCameraYaw);
           return controller;

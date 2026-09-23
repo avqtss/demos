@@ -1,10 +1,11 @@
-const PLAYER_VERSION = "20260923-360-1";
+const PLAYER_VERSION = "20260923-visual-2";
 
 const syntheticScenes = [
   {
     id: "synthetic-k2",
     title: "Example #1",
     sources: "Laughter, music",
+    initialYaw: 180,
     mixture: "assets/demos/synthetic/k2/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
     queries: [
@@ -68,6 +69,7 @@ const syntheticScenes = [
     id: "synthetic-k4",
     title: "Example #3",
     sources: "Bell, telephone, laughter, domestic sounds",
+    initialYaw: 180,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
     queries: [
@@ -136,12 +138,13 @@ const pausePlayer = (frame) => {
   }
 };
 
-const setPlayerSource = (frame, video, audio, label) => {
+const setPlayerSource = (frame, video, audio, label, initialYaw = 0) => {
   pausePlayer(frame);
   const parameters = new URLSearchParams({
     video,
     audio,
     label,
+    yaw: String(initialYaw),
     v: PLAYER_VERSION,
   });
   frame.src = `demo-player.html?${parameters.toString()}`;
@@ -170,6 +173,7 @@ const renderScene = (scene) => {
     scene.mixture,
     scene.mixtureAudio,
     `${scene.title}: Input video and mono mixture`,
+    scene.initialYaw,
   );
 
   const queryPanel = document.createElement("div");
@@ -206,18 +210,21 @@ const renderScene = (scene) => {
       query.groundTruth,
       query.groundTruthAudio,
       `Ground-truth target: ${query.label}`,
+      scene.initialYaw,
     );
     setPlayerSource(
       predicted.frame,
       query.predicted,
       query.predictedAudio,
       `Predicted target: ${query.label}`,
+      scene.initialYaw,
     );
     setPlayerSource(
       energy.frame,
       query.energy,
       query.predictedAudio,
       `Predicted target with FOA energy: ${query.label}`,
+      scene.initialYaw,
     );
   };
 
