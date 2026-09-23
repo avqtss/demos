@@ -217,7 +217,7 @@ body {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: var(--paper);
+  background: transparent;
 }
 
 .media-label {
@@ -229,12 +229,12 @@ body {
   font-weight: 700;
 }
 
-.media-panel video {
+.player-frame {
   display: block;
   width: 100%;
   aspect-ratio: 2 / 1;
+  border: 0;
   background: #000000;
-  object-fit: contain;
 }
 
 .query-panel {
@@ -296,11 +296,6 @@ body {
   overflow: hidden;
 }
 
-.scene-output.is-spatial {
-  border-color: var(--line);
-  background: var(--paper);
-}
-
 .demo-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -336,12 +331,12 @@ body {
   font-weight: 700;
 }
 
-.demo-item video {
+.demo-item .player-frame {
   display: block;
   width: 100%;
   aspect-ratio: 2 / 1;
+  border: 0;
   background: #000000;
-  object-fit: contain;
 }
 
 .demo-sequence {

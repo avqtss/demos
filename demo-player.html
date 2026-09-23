@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>AV-QTSS 360-degree demo player</title>
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://www.gstatic.com/external_hosted/omnitone/build/omnitone.min.js"></script>
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    #viewer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #viewer a-scene {
+      width: 100%;
+      height: 100%;
+    }
+
+    #viewer .a-canvas {
+      position: relative !important;
+      z-index: 1 !important;
+    }
+
+    .overlay-controls {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      z-index: 2147483647;
+      display: flex;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .player-button {
+      padding: 8px 14px;
+      border: 2px solid rgb(255 255 255 / 78%);
+      border-radius: 8px;
+      color: #fff;
+      background: rgb(0 0 0 / 58%);
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      pointer-events: auto;
+      user-select: none;
+      backdrop-filter: blur(2px);
+    }
+
+    .player-button:active {
+      transform: translateY(1px);
+    }
+
+    .fullscreen-button {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 2147483647;
+      display: grid;
+      width: 44px;
+      height: 38px;
+      padding: 0;
+      place-items: center;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    #loading {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: #000;
+      font-size: 14px;
+    }
+
+    #error-message {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      z-index: 2147483647;
+      display: none;
+      max-height: 45%;
+      padding: 10px;
+      overflow: auto;
+      border: 1px solid #ffb3b3;
+      border-radius: 6px;
+      color: #7a0000;
+      background: #ffecec;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+
+    .a-enter-vr,
+    .a-enter-ar,
+    .a-orientation-modal,
+    .a-loader-title,
+    .a-fullscreen-ui,
+    .a-canvas + div,
+    #viewer .a-enter-vr-button,
+    #viewer [class*="fullscreen"]:not(#fullscreen-button) {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="viewer">
+    <div id="loading">Loading 360&deg; viewer...</div>
+    <div class="overlay-controls">
+      <button id="rewind-button" class="player-button" type="button">Rewind</button>
+      <button id="play-button" class="player-button" type="button">Play</button>
+    </div>
+    <button id="fullscreen-button" class="player-button fullscreen-button" type="button" title="Fullscreen" aria-label="Fullscreen">&#x26F6;</button>
+    <div id="error-message" role="alert"></div>
+  </div>
+
+  <script>
+    const ROTATION_SIGN = -1;
+    let controller = null;
+
+    const showError = (error) => {
+      console.error(error);
+      const box = document.querySelector("#error-message");
+      box.style.display = "block";
+      box.textContent = error && error.stack ? error.stack : String(error);
+    };
+
+    const yawToMatrix = (yaw) => {
+      const cosine = Math.cos(yaw);
+      const sine = Math.sin(yaw);
+      return [
+        cosine, 0, -sine,
+        0, 1, 0,
+        sine, 0, cosine,
+      ];
+    };
+
+    const getParameters = () => {
+      const parameters = new URLSearchParams(window.location.search);
+      return {
+        video: parameters.get("video") || "",
+        audio: parameters.get("audio") || "",
+        label: parameters.get("label") || "360-degree audio demo",
+      };
+    };
+
+    const createFOAController = async (audioUrl, getCameraYaw) => {
+      if (!window.Omnitone) throw new Error("Omnitone is unavailable.");
+
+      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const renderer = Omnitone.createFOARenderer(context);
+      await renderer.initialize();
+
+      const outputGain = context.createGain();
+      outputGain.gain.value = 2.4;
+      renderer.output.connect(outputGain);
+      outputGain.connect(context.destination);
+
+      const audio = document.createElement("audio");
+      audio.crossOrigin = "anonymous";
+      audio.preload = "metadata";
+      audio.src = audioUrl;
+      document.body.appendChild(audio);
+
+      const source = context.createMediaElementSource(audio);
+      source.connect(renderer.input);
+
+      let animationFrame = null;
+      const updateRotation = () => {
+        const matrix = yawToMatrix(ROTATION_SIGN * getCameraYaw());
+        if (typeof renderer.setRotationMatrix3 === "function") {
+          renderer.setRotationMatrix3(matrix);
+        } else if (typeof renderer.setRotationMatrix === "function") {
+          renderer.setRotationMatrix(matrix);
+        } else if (renderer._foaRotator && typeof renderer._foaRotator.setRotationMatrix3 === "function") {
+          renderer._foaRotator.setRotationMatrix3(matrix);
+        }
+        animationFrame = requestAnimationFrame(updateRotation);
+      };
+      updateRotation();
+
+      const ensureMetadata = async () => {
+        if (audio.readyState >= 1) return;
+        await new Promise((resolve, reject) => {
+          audio.addEventListener("loadedmetadata", resolve, { once: true });
+          audio.addEventListener("error", () => reject(new Error(`Unable to load audio: ${audioUrl}`)), { once: true });
+          audio.load();
+        });
+      };
+
+      return {
+        async playFrom(seconds) {
+          if (context.state !== "running") await context.resume();
+          await ensureMetadata();
+          audio.currentTime = Math.max(0, seconds || 0);
+          await audio.play();
+        },
+        pause() {
+          audio.pause();
+        },
+        stop() {
+          audio.pause();
+          audio.currentTime = 0;
+        },
+        destroy() {
+          if (animationFrame) cancelAnimationFrame(animationFrame);
+          audio.pause();
+          audio.remove();
+          source.disconnect();
+          outputGain.disconnect();
+          renderer.output.disconnect();
+          context.close();
+        },
+      };
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const { video: videoUrl, audio: audioUrl, label } = getParameters();
+        if (!videoUrl || !audioUrl) throw new Error("Missing video or audio parameter.");
+
+        const viewer = document.querySelector("#viewer");
+        const loading = document.querySelector("#loading");
+        const playButton = document.querySelector("#play-button");
+        const rewindButton = document.querySelector("#rewind-button");
+        const fullscreenButton = document.querySelector("#fullscreen-button");
+
+        const scene = document.createElement("a-scene");
+        scene.setAttribute("embedded", "");
+        scene.setAttribute("vr-mode-ui", "enabled: false");
+        scene.setAttribute("device-orientation-permission-ui", "enabled: false");
+
+        const assets = document.createElement("a-assets");
+        const video = document.createElement("video");
+        video.id = "player-video";
+        video.crossOrigin = "anonymous";
+        video.preload = "metadata";
+        video.playsInline = true;
+        video.setAttribute("webkit-playsinline", "");
+        video.setAttribute("aria-label", label);
+        video.muted = true;
+
+        if (videoUrl.endsWith(".webm")) {
+          const webmSource = document.createElement("source");
+          webmSource.src = videoUrl;
+          webmSource.type = "video/webm";
+          const mp4Source = document.createElement("source");
+          mp4Source.src = videoUrl.replace(/\.webm$/, ".mp4");
+          mp4Source.type = "video/mp4";
+          video.append(webmSource, mp4Source);
+        } else {
+          video.src = videoUrl;
+        }
+
+        const sphere = document.createElement("a-videosphere");
+        sphere.setAttribute("src", "#player-video");
+        sphere.setAttribute("rotation", "0 -90 0");
+
+        const camera = document.createElement("a-camera");
+        camera.setAttribute("look-controls", "enabled: true");
+
+        assets.appendChild(video);
+        scene.append(assets, sphere, camera);
+        viewer.prepend(scene);
+
+        await new Promise((resolve, reject) => {
+          scene.addEventListener("loaded", resolve, { once: true });
+          scene.addEventListener("error", reject, { once: true });
+        });
+
+        const getCameraYaw = () => camera.object3D ? camera.object3D.rotation.y : 0;
+        const getController = async () => {
+          if (!controller) controller = await createFOAController(audioUrl, getCameraYaw);
+          return controller;
+        };
+
+        let isPlaying = false;
+        const setPausedState = () => {
+          isPlaying = false;
+          playButton.textContent = "Play";
+          if (controller) controller.pause();
+        };
+
+        const startAt = async (seconds) => {
+          const audioController = await getController();
+          await audioController.playFrom(seconds);
+          try {
+            await video.play();
+          } catch (error) {
+            audioController.pause();
+            throw error;
+          }
+          isPlaying = true;
+          playButton.textContent = "Pause";
+          window.parent.postMessage({ type: "avqtss-player-started" }, window.location.origin);
+        };
+
+        playButton.addEventListener("click", async () => {
+          try {
+            if (isPlaying) {
+              video.pause();
+            } else {
+              await startAt(video.currentTime || 0);
+            }
+          } catch (error) {
+            showError(error);
+          }
+        });
+
+        rewindButton.addEventListener("click", async () => {
+          try {
+            video.currentTime = 0;
+            await startAt(0);
+          } catch (error) {
+            showError(error);
+          }
+        });
+
+        fullscreenButton.addEventListener("click", async () => {
+          try {
+            if (document.fullscreenElement) {
+              await document.exitFullscreen();
+            } else {
+              await viewer.requestFullscreen();
+            }
+          } catch (error) {
+            showError(error);
+          }
+        });
+
+        video.addEventListener("pause", setPausedState);
+        video.addEventListener("ended", () => {
+          setPausedState();
+          if (controller) controller.stop();
+        });
+
+        window.addEventListener("message", (event) => {
+          if (event.origin !== window.location.origin) return;
+          if (event.data && event.data.type === "avqtss-pause") video.pause();
+        });
+
+        window.addEventListener("beforeunload", () => {
+          if (controller) controller.destroy();
+        });
+
+        loading.style.display = "none";
+      } catch (error) {
+        showError(error);
+        const loading = document.querySelector("#loading");
+        if (loading) loading.textContent = "Failed to load viewer.";
+      }
+    });
+  </script>
+</body>
+</html>

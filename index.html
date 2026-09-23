@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,600,700|Noto+Sans:400,600,700|Castoro:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260923-360-1">
 </head>
 
 <body>
@@ -102,10 +102,13 @@
                     <span>Query</span>
                     <h4>Musical instrument</h4>
                   </header>
-                  <video controls playsinline preload="metadata">
-                    <source src="assets/demos/stairs26-musical-instrument.mp4" type="video/mp4">
-                    Your browser does not support embedded video.
-                  </video>
+                  <iframe
+                    class="player-frame"
+                    src="demo-player.html?video=assets/demos/stairs26-musical-instrument.webm&amp;audio=assets/demos/stairs26/audio/musical-instrument-sequence-foa.wav&amp;label=STAIRS26%3A%20Musical%20instrument&amp;v=20260923-360-1"
+                    title="STAIRS26 musical instrument query, interactive 360-degree video"
+                    loading="lazy"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen></iframe>
                   <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
                 </article>
 
@@ -114,10 +117,13 @@
                     <span>Query</span>
                     <h4>Male speech</h4>
                   </header>
-                  <video controls playsinline preload="metadata">
-                    <source src="assets/demos/stairs26-male-speech.mp4" type="video/mp4">
-                    Your browser does not support embedded video.
-                  </video>
+                  <iframe
+                    class="player-frame"
+                    src="demo-player.html?video=assets/demos/stairs26-male-speech.webm&amp;audio=assets/demos/stairs26/audio/male-speech-sequence-foa.wav&amp;label=STAIRS26%3A%20Male%20speech&amp;v=20260923-360-1"
+                    title="STAIRS26 male speech query, interactive 360-degree video"
+                    loading="lazy"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen></iframe>
                   <p class="demo-sequence">Mixture &rarr; predicted target &rarr; FOA energy map</p>
                 </article>
               </div>
@@ -157,6 +163,6 @@
       </div>
     </div>
   </footer>
-  <script src="demo.js"></script>
+  <script src="demo.js?v=20260923-360-1"></script>
 </body>
 </html>
