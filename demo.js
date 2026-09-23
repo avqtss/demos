@@ -1,11 +1,11 @@
-const PLAYER_VERSION = "20260923-visual-2";
+const PLAYER_VERSION = "20260923-flat-energy-3";
 
 const syntheticScenes = [
   {
     id: "synthetic-k2",
     title: "Example #1",
     sources: "Laughter, music",
-    initialYaw: 180,
+    initialYaw: 130,
     mixture: "assets/demos/synthetic/k2/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
     queries: [
@@ -16,7 +16,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k2/audio/laughter-gt-foa.wav",
         predicted: "assets/demos/synthetic/k2/laughter-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k2/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/laughter-foa-energy.webm",
+        energy: "assets/demos/synthetic/k2/laughter-foa-energy.mp4",
       },
       {
         id: "music",
@@ -25,7 +25,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k2/audio/music-gt-foa.wav",
         predicted: "assets/demos/synthetic/k2/music-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k2/audio/music-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/music-foa-energy.webm",
+        energy: "assets/demos/synthetic/k2/music-foa-energy.mp4",
       },
     ],
   },
@@ -43,7 +43,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k3/audio/bell-gt-foa.wav",
         predicted: "assets/demos/synthetic/k3/bell-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k3/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k3/bell-foa-energy.webm",
+        energy: "assets/demos/synthetic/k3/bell-foa-energy.mp4",
       },
       {
         id: "door-or-cupboard",
@@ -52,7 +52,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k3/audio/door-or-cupboard-gt-foa.wav",
         predicted: "assets/demos/synthetic/k3/door-or-cupboard-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k3/audio/door-or-cupboard-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k3/door-or-cupboard-foa-energy.webm",
+        energy: "assets/demos/synthetic/k3/door-or-cupboard-foa-energy.mp4",
       },
       {
         id: "water-tap",
@@ -61,7 +61,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k3/audio/water-tap-gt-foa.wav",
         predicted: "assets/demos/synthetic/k3/water-tap-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k3/audio/water-tap-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k3/water-tap-foa-energy.webm",
+        energy: "assets/demos/synthetic/k3/water-tap-foa-energy.mp4",
       },
     ],
   },
@@ -69,7 +69,7 @@ const syntheticScenes = [
     id: "synthetic-k4",
     title: "Example #3",
     sources: "Bell, telephone, laughter, domestic sounds",
-    initialYaw: 180,
+    initialYaw: -59,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
     queries: [
@@ -80,7 +80,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k4/audio/bell-gt-foa.wav",
         predicted: "assets/demos/synthetic/k4/bell-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k4/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/bell-foa-energy.webm",
+        energy: "assets/demos/synthetic/k4/bell-foa-energy.mp4",
       },
       {
         id: "telephone",
@@ -89,7 +89,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k4/audio/telephone-gt-foa.wav",
         predicted: "assets/demos/synthetic/k4/telephone-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k4/audio/telephone-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/telephone-foa-energy.webm",
+        energy: "assets/demos/synthetic/k4/telephone-foa-energy.mp4",
       },
       {
         id: "laughter",
@@ -98,7 +98,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k4/audio/laughter-gt-foa.wav",
         predicted: "assets/demos/synthetic/k4/laughter-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k4/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/laughter-foa-energy.webm",
+        energy: "assets/demos/synthetic/k4/laughter-foa-energy.mp4",
       },
       {
         id: "domestic-sounds",
@@ -107,7 +107,7 @@ const syntheticScenes = [
         groundTruthAudio: "assets/demos/synthetic/k4/audio/domestic-sounds-gt-foa.wav",
         predicted: "assets/demos/synthetic/k4/domestic-sounds-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k4/audio/domestic-sounds-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/domestic-sounds-foa-energy.webm",
+        energy: "assets/demos/synthetic/k4/domestic-sounds-foa-energy.mp4",
       },
     ],
   },
@@ -132,6 +132,26 @@ const createPlayer = (label) => {
   return { panel, frame };
 };
 
+const createFlatVideo = (label) => {
+  const panel = document.createElement("div");
+  panel.className = "media-panel scene-output";
+
+  const heading = document.createElement("p");
+  heading.className = "media-label";
+  heading.textContent = label;
+
+  const video = document.createElement("video");
+  video.className = "flat-video";
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = "metadata";
+  video.setAttribute("aria-label", label);
+  video.appendChild(document.createTextNode("Your browser does not support embedded video."));
+
+  panel.append(heading, video);
+  return { panel, video };
+};
+
 const pausePlayer = (frame) => {
   if (frame.contentWindow) {
     frame.contentWindow.postMessage({ type: "avqtss-pause" }, window.location.origin);
@@ -149,6 +169,31 @@ const setPlayerSource = (frame, video, audio, label, initialYaw = 0) => {
   });
   frame.src = `demo-player.html?${parameters.toString()}`;
   frame.title = `${label}, interactive 360-degree video`;
+};
+
+const setFlatVideoSource = (video, source, label) => {
+  video.pause();
+  video.removeAttribute("src");
+  video.replaceChildren();
+
+  const appendSource = (path, type) => {
+    const url = new URL(path, window.location.href);
+    url.searchParams.set("v", PLAYER_VERSION);
+    const sourceElement = document.createElement("source");
+    sourceElement.src = url.href;
+    sourceElement.type = type;
+    video.appendChild(sourceElement);
+  };
+
+  if (source.endsWith(".mp4")) {
+    appendSource(source.replace(/\.mp4$/, ".webm"), "video/webm");
+    appendSource(source, "video/mp4");
+  } else {
+    appendSource(source, "video/webm");
+  }
+  video.appendChild(document.createTextNode("Your browser does not support embedded video."));
+  video.setAttribute("aria-label", label);
+  video.load();
 };
 
 const renderScene = (scene) => {
@@ -195,7 +240,7 @@ const renderScene = (scene) => {
   outputs.className = "scene-outputs";
   const groundTruth = createPlayer("Ground-truth target");
   const predicted = createPlayer("Predicted target");
-  const energy = createPlayer("Predicted target with FOA energy");
+  const energy = createFlatVideo("Predicted target with FOA energy");
   outputs.append(groundTruth.panel, predicted.panel, energy.panel);
 
   const selectQuery = (query, selectedButton) => {
@@ -219,12 +264,10 @@ const renderScene = (scene) => {
       `Predicted target: ${query.label}`,
       scene.initialYaw,
     );
-    setPlayerSource(
-      energy.frame,
+    setFlatVideoSource(
+      energy.video,
       query.energy,
-      query.predictedAudio,
       `Predicted target with FOA energy: ${query.label}`,
-      scene.initialYaw,
     );
   };
 
@@ -278,6 +321,7 @@ const selectDataset = (selectedDataset, shouldScroll = true) => {
     dataset.section.hidden = !selected;
     if (!selected) {
       dataset.section.querySelectorAll("iframe.player-frame").forEach(pausePlayer);
+      dataset.section.querySelectorAll("video.flat-video").forEach((video) => video.pause());
     }
   });
 
@@ -299,4 +343,15 @@ window.addEventListener("message", (event) => {
   document.querySelectorAll("iframe.player-frame").forEach((frame) => {
     if (frame.contentWindow !== event.source) pausePlayer(frame);
   });
+  document.querySelectorAll("video.flat-video").forEach((video) => video.pause());
 });
+
+document.addEventListener("play", (event) => {
+  if (!(event.target instanceof HTMLVideoElement) || !event.target.classList.contains("flat-video")) {
+    return;
+  }
+  document.querySelectorAll("iframe.player-frame").forEach(pausePlayer);
+  document.querySelectorAll("video.flat-video").forEach((video) => {
+    if (video !== event.target) video.pause();
+  });
+}, true);

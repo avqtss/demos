@@ -237,6 +237,14 @@ body {
   background: #000000;
 }
 
+.flat-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: #000000;
+  object-fit: contain;
+}
+
 .query-panel {
   display: flex;
   flex-direction: column;
