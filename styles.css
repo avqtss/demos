@@ -98,6 +98,10 @@ body {
   background: var(--paper);
 }
 
+.demo-section .container.is-max-desktop {
+  max-width: 1080px !important;
+}
+
 .listening-guide .hero-body {
   padding-top: 3rem;
   padding-bottom: 2.25rem;
@@ -171,16 +175,8 @@ body {
   text-align: center;
 }
 
-.scene-list {
-  border-top: 1px solid var(--line);
-}
-
 .interactive-scene {
   padding: 2.25rem 0 2.5rem;
-}
-
-.interactive-scene + .interactive-scene {
-  border-top: 1px solid var(--line);
 }
 
 .scene-heading {

@@ -9,15 +9,6 @@ const syntheticScenes = [
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
     queries: [
       {
-        id: "laughter",
-        label: "Laughter",
-        groundTruth: "assets/demos/synthetic/k2/laughter-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k2/audio/laughter-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k2/laughter-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k2/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/laughter-foa-energy.mp4",
-      },
-      {
         id: "music",
         label: "Music",
         groundTruth: "assets/demos/synthetic/k2/music-gt.webm",
@@ -25,6 +16,15 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k2/music-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k2/audio/music-predicted-foa.wav",
         energy: "assets/demos/synthetic/k2/music-foa-energy.mp4",
+      },
+      {
+        id: "laughter",
+        label: "Laughter",
+        groundTruth: "assets/demos/synthetic/k2/laughter-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2/audio/laughter-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2/laughter-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k2/audio/laughter-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2/laughter-foa-energy.mp4",
       },
     ],
   },
@@ -34,6 +34,15 @@ const syntheticScenes = [
     mixture: "assets/demos/synthetic/k3/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3/audio/mixture-w.wav",
     queries: [
+      {
+        id: "water-tap",
+        label: "Water tap",
+        groundTruth: "assets/demos/synthetic/k3/water-tap-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k3/audio/water-tap-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k3/water-tap-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k3/audio/water-tap-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k3/water-tap-foa-energy.mp4",
+      },
       {
         id: "bell",
         label: "Bell",
@@ -51,15 +60,6 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k3/door-or-cupboard-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k3/audio/door-or-cupboard-predicted-foa.wav",
         energy: "assets/demos/synthetic/k3/door-or-cupboard-foa-energy.mp4",
-      },
-      {
-        id: "water-tap",
-        label: "Water tap",
-        groundTruth: "assets/demos/synthetic/k3/water-tap-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k3/audio/water-tap-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k3/water-tap-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k3/audio/water-tap-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k3/water-tap-foa-energy.mp4",
       },
     ],
   },
