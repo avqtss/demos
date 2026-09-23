@@ -195,16 +195,6 @@ body {
   margin-bottom: 1.25rem;
 }
 
-@media (min-width: 769px) {
-  .scene-controls {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .scene-controls > .query-panel {
-    grid-column: 2 / 4;
-  }
-}
-
 .media-panel,
 .query-panel {
   min-width: 0;
@@ -347,6 +337,30 @@ body {
   border-color: #000000;
   color: #ffffff;
   background: #000000;
+}
+
+@media (min-width: 769px) {
+  .scene-controls {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+
+  .query-panel {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .query-label {
+    flex: 0 0 auto;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .query-tabs {
+    flex-flow: row wrap;
+    align-items: center;
+  }
 }
 
 .scene-outputs {
