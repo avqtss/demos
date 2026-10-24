@@ -1,4 +1,76 @@
-const PLAYER_VERSION = "20260923-flat-energy-3";
+const PLAYER_VERSION = "20261024-real-scenes-4";
+
+const stairs26Scenes = [
+  {
+    id: "stairs26-example-1",
+    title: "Example #1",
+    sourceCount: 2,
+    mixture: "assets/demos/stairs26/example-1/mixture.webm",
+    mixtureAudio: "assets/demos/stairs26/example-1/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "domestic-sounds",
+        label: "Domestic sounds",
+        predicted: "assets/demos/stairs26/example-1/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-1/audio/domestic-sounds-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-1/domestic-sounds-foa-energy.mp4",
+      },
+      {
+        id: "male-speech",
+        label: "Male speech",
+        predicted: "assets/demos/stairs26/example-1/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-1/audio/male-speech-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-1/male-speech-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "stairs26-example-2",
+    title: "Example #2",
+    sourceCount: 2,
+    mixture: "assets/demos/stairs26/example-2/mixture.webm",
+    mixtureAudio: "assets/demos/stairs26/example-2/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "domestic-sounds",
+        label: "Domestic sounds",
+        predicted: "assets/demos/stairs26/example-2/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-2/audio/domestic-sounds-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-2/domestic-sounds-foa-energy.mp4",
+      },
+      {
+        id: "female-speech",
+        label: "Female speech",
+        predicted: "assets/demos/stairs26/example-2/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-2/audio/female-speech-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-2/female-speech-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "stairs26-example-3",
+    title: "Example #3",
+    sourceCount: 2,
+    mixture: "assets/demos/stairs26/example-3/mixture.webm",
+    mixtureAudio: "assets/demos/stairs26/example-3/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "laughter",
+        label: "Laughter",
+        predicted: "assets/demos/stairs26/example-3/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-3/audio/laughter-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-3/laughter-foa-energy.mp4",
+      },
+      {
+        id: "male-speech",
+        label: "Male speech",
+        predicted: "assets/demos/stairs26/example-3/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-3/audio/male-speech-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-3/male-speech-foa-energy.mp4",
+      },
+    ],
+  },
+];
 
 const syntheticScenes = [
   {
@@ -268,7 +340,8 @@ const renderScene = (scene) => {
   const heading = document.createElement("header");
   heading.className = "scene-heading";
   const headingTitle = document.createElement("h4");
-  headingTitle.textContent = `${scene.title} (${scene.queries.length} sources)`;
+  const sourceCount = scene.sourceCount || scene.queries.length;
+  headingTitle.textContent = `${scene.title} (${sourceCount} sources)`;
   heading.appendChild(headingTitle);
 
   const controls = document.createElement("div");
@@ -302,10 +375,18 @@ const renderScene = (scene) => {
 
   const outputs = document.createElement("div");
   outputs.className = "scene-outputs";
-  const groundTruth = createPlayer("Ground-truth target");
+  const hasGroundTruth = scene.queries.every(
+    (query) => query.groundTruth && query.groundTruthAudio,
+  );
+  const groundTruth = hasGroundTruth ? createPlayer("Ground-truth target") : null;
   const predicted = createPlayer("Predicted target");
   const energy = createFlatVideo("Predicted target with FOA energy");
-  outputs.append(groundTruth.panel, predicted.panel, energy.panel);
+  if (groundTruth) {
+    outputs.append(groundTruth.panel);
+  } else {
+    outputs.classList.add("scene-outputs--two");
+  }
+  outputs.append(predicted.panel, energy.panel);
 
   const selectQuery = (query, selectedButton) => {
     tabs.querySelectorAll(".query-tab").forEach((button) => {
@@ -314,13 +395,15 @@ const renderScene = (scene) => {
       button.tabIndex = selected ? 0 : -1;
     });
 
-    setPlayerSource(
-      groundTruth.frame,
-      query.groundTruth,
-      query.groundTruthAudio,
-      `Ground-truth target: ${query.label}`,
-      scene.initialYaw,
-    );
+    if (groundTruth) {
+      setPlayerSource(
+        groundTruth.frame,
+        query.groundTruth,
+        query.groundTruthAudio,
+        `Ground-truth target: ${query.label}`,
+        scene.initialYaw,
+      );
+    }
     setPlayerSource(
       predicted.frame,
       query.predicted,
@@ -364,10 +447,16 @@ const renderScene = (scene) => {
   return article;
 };
 
-const sceneList = document.querySelector("#synthetic-scenes");
-if (sceneList) {
-  syntheticScenes.forEach((scene) => sceneList.appendChild(renderScene(scene)));
-}
+const sceneGroups = [
+  ["#stairs26-scenes", stairs26Scenes],
+  ["#synthetic-scenes", syntheticScenes],
+];
+
+sceneGroups.forEach(([selector, scenes]) => {
+  const sceneList = document.querySelector(selector);
+  if (!sceneList) return;
+  scenes.forEach((scene) => sceneList.appendChild(renderScene(scene)));
+});
 
 const datasets = [
   {
