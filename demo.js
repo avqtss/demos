@@ -341,7 +341,10 @@ const renderScene = (scene) => {
   heading.className = "scene-heading";
   const headingTitle = document.createElement("h4");
   const sourceCount = scene.sourceCount || scene.queries.length;
-  headingTitle.textContent = `${scene.title} (${sourceCount} sources)`;
+  const sourceSummary = document.createElement("span");
+  sourceSummary.className = "scene-source-count";
+  sourceSummary.textContent = `(${sourceCount} sources)`;
+  headingTitle.append(scene.title, " ", sourceSummary);
   heading.appendChild(headingTitle);
 
   const controls = document.createElement("div");

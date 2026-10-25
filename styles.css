@@ -187,6 +187,11 @@ body {
   font-weight: 500;
 }
 
+.scene-source-count {
+  margin-left: 0.25em;
+  white-space: nowrap;
+}
+
 .scene-controls {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 1fr);
