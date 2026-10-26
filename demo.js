@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261026-k4-query-order-6";
+const PLAYER_VERSION = "20261026-real-order-7";
 
 let interactivePlayerCount = 0;
 
@@ -30,29 +30,6 @@ const stairs26Scenes = [
     id: "stairs26-example-2",
     title: "Example #2",
     sourceCount: 2,
-    mixture: "assets/demos/stairs26/example-3/mixture.webm",
-    mixtureAudio: "assets/demos/stairs26/example-3/audio/mixture-w.wav",
-    queries: [
-      {
-        id: "laughter",
-        label: "Laughter",
-        predicted: "assets/demos/stairs26/example-3/mixture.webm",
-        predictedAudio: "assets/demos/stairs26/example-3/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/stairs26/example-3/laughter-foa-energy.mp4",
-      },
-      {
-        id: "male-speech",
-        label: "Male speech",
-        predicted: "assets/demos/stairs26/example-3/mixture.webm",
-        predictedAudio: "assets/demos/stairs26/example-3/audio/male-speech-predicted-foa.wav",
-        energy: "assets/demos/stairs26/example-3/male-speech-foa-energy.mp4",
-      },
-    ],
-  },
-  {
-    id: "stairs26-example-3",
-    title: "Example #3",
-    sourceCount: 2,
     mixture: "assets/demos/stairs26/example-1/mixture.webm",
     mixtureAudio: "assets/demos/stairs26/example-1/audio/mixture-w.wav",
     queries: [
@@ -69,6 +46,29 @@ const stairs26Scenes = [
         predicted: "assets/demos/stairs26/example-1/mixture.webm",
         predictedAudio: "assets/demos/stairs26/example-1/audio/male-speech-predicted-foa.wav",
         energy: "assets/demos/stairs26/example-1/male-speech-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "stairs26-example-3",
+    title: "Example #3",
+    sourceCount: 2,
+    mixture: "assets/demos/stairs26/example-3/mixture.webm",
+    mixtureAudio: "assets/demos/stairs26/example-3/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "laughter",
+        label: "Laughter",
+        predicted: "assets/demos/stairs26/example-3/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-3/audio/laughter-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-3/laughter-foa-energy.mp4",
+      },
+      {
+        id: "male-speech",
+        label: "Male speech",
+        predicted: "assets/demos/stairs26/example-3/mixture.webm",
+        predictedAudio: "assets/demos/stairs26/example-3/audio/male-speech-predicted-foa.wav",
+        energy: "assets/demos/stairs26/example-3/male-speech-foa-energy.mp4",
       },
     ],
   },
