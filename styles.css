@@ -386,6 +386,11 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+#section-stairs26 .scene-outputs--two {
+  width: min(780px, 100%);
+  margin-inline: auto;
+}
+
 .scene-output {
   overflow: hidden;
 }
