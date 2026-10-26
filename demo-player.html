@@ -168,6 +168,7 @@
         audio: parameters.get("audio") || "",
         label: parameters.get("label") || "360-degree audio demo",
         yaw: Number.isFinite(yaw) ? yaw : 0,
+        playerId: parameters.get("playerId") || "",
         version: parameters.get("v") || "",
       };
     };
@@ -256,6 +257,7 @@
           audio: rawAudioUrl,
           label,
           yaw,
+          playerId,
           version,
         } = getParameters();
         if (!rawVideoUrl || !rawAudioUrl) {
@@ -344,10 +346,10 @@
 
         let isPlaying = false;
         let isStarting = false;
-        const setPausedState = () => {
-          isPlaying = false;
-          if (!isStarting) playButton.textContent = "Play";
-          if (controller) controller.pause();
+        const syncPlayState = () => {
+          isPlaying = !video.paused && !video.ended;
+          if (!isStarting) playButton.textContent = isPlaying ? "Pause" : "Play";
+          if (!isPlaying && controller) controller.pause();
         };
 
         const startAt = async (seconds) => {
@@ -362,22 +364,29 @@
               audioController.playFrom(video.currentTime),
               video.play(),
             ]);
-            isPlaying = true;
-            playButton.textContent = "Pause";
-            window.parent.postMessage({ type: "avqtss-player-started" }, window.location.origin);
+            syncPlayState();
+            if (isPlaying) {
+              window.parent.postMessage({
+                type: "avqtss-player-started",
+                playerId,
+              }, window.location.origin);
+            }
           } catch (error) {
+            video.pause();
             if (controller) controller.pause();
             throw error;
           } finally {
             isStarting = false;
             playButton.disabled = false;
-            if (!isPlaying) playButton.textContent = "Play";
+            syncPlayState();
           }
         };
 
-        playButton.addEventListener("click", async () => {
+        playButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+          event.stopPropagation();
           try {
-            if (isPlaying) {
+            if (!video.paused && !video.ended) {
               video.pause();
             } else {
               const atEnd = video.ended || (
@@ -391,7 +400,9 @@
           }
         });
 
-        rewindButton.addEventListener("click", async () => {
+        rewindButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+          event.stopPropagation();
           try {
             video.currentTime = 0;
             await startAt(0);
@@ -400,7 +411,9 @@
           }
         });
 
-        fullscreenButton.addEventListener("click", async () => {
+        fullscreenButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+          event.stopPropagation();
           try {
             if (document.fullscreenElement) {
               await document.exitFullscreen();
@@ -412,15 +425,18 @@
           }
         });
 
-        video.addEventListener("pause", setPausedState);
+        video.addEventListener("playing", syncPlayState);
+        video.addEventListener("pause", syncPlayState);
         video.addEventListener("ended", () => {
-          setPausedState();
+          syncPlayState();
           if (controller) controller.stop();
         });
 
         window.addEventListener("message", (event) => {
           if (event.origin !== window.location.origin) return;
-          if (event.data && event.data.type === "avqtss-pause") video.pause();
+          if (!event.data || event.data.type !== "avqtss-pause") return;
+          if (event.data.playerId && event.data.playerId !== playerId) return;
+          video.pause();
         });
 
         window.addEventListener("beforeunload", () => {

@@ -1,4 +1,6 @@
-const PLAYER_VERSION = "20261026-door-short-label-4";
+const PLAYER_VERSION = "20261026-player-state-5";
+
+let interactivePlayerCount = 0;
 
 const stairs26Scenes = [
   {
@@ -192,6 +194,7 @@ const createPlayer = (label) => {
 
   const frame = document.createElement("iframe");
   frame.className = "player-frame";
+  frame.dataset.playerId = `interactive-player-${++interactivePlayerCount}`;
   frame.loading = "lazy";
   frame.allow = "autoplay; fullscreen";
   frame.setAttribute("allowfullscreen", "");
@@ -291,7 +294,10 @@ const createFlatVideo = (label) => {
 
 const pausePlayer = (frame) => {
   if (frame.contentWindow) {
-    frame.contentWindow.postMessage({ type: "avqtss-pause" }, window.location.origin);
+    frame.contentWindow.postMessage({
+      type: "avqtss-pause",
+      playerId: frame.dataset.playerId,
+    }, window.location.origin);
   }
 };
 
@@ -302,6 +308,7 @@ const setPlayerSource = (frame, video, audio, label, initialYaw = 0) => {
     audio,
     label,
     yaw: String(initialYaw),
+    playerId: frame.dataset.playerId,
     v: PLAYER_VERSION,
   });
   const source = `demo-player.html?${parameters.toString()}`;
@@ -559,7 +566,10 @@ window.addEventListener("message", (event) => {
   if (event.origin !== window.location.origin) return;
   if (!event.data || event.data.type !== "avqtss-player-started") return;
   document.querySelectorAll("iframe.player-frame").forEach((frame) => {
-    if (frame.contentWindow !== event.source) pausePlayer(frame);
+    const isCurrentPlayer = event.data.playerId
+      ? frame.dataset.playerId === event.data.playerId
+      : frame.contentWindow === event.source;
+    if (!isCurrentPlayer) pausePlayer(frame);
   });
   document.querySelectorAll("video.flat-video").forEach((video) => video.pause());
 });
