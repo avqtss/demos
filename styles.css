@@ -184,6 +184,11 @@ body {
   padding: 2.25rem 0 2.5rem;
 }
 
+#section-stairs26 .interactive-scene {
+  width: min(960px, 100%);
+  margin-inline: auto;
+}
+
 .scene-heading {
   margin-bottom: 1.2rem;
 }
@@ -357,6 +362,10 @@ body {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   }
 
+  #section-stairs26 .scene-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .query-panel {
     flex-direction: row;
     gap: 1rem;
@@ -384,10 +393,6 @@ body {
 
 .scene-outputs--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-#section-stairs26 .scene-outputs--two {
-  width: min(960px, 100%);
 }
 
 .scene-output {
