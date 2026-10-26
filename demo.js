@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261026-player-state-5";
+const PLAYER_VERSION = "20261026-k4-query-order-6";
 
 let interactivePlayerCount = 0;
 
@@ -145,24 +145,6 @@ const syntheticScenes = [
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
     queries: [
       {
-        id: "bell",
-        label: "Bell",
-        groundTruth: "assets/demos/synthetic/k4/bell-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/bell-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/bell-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/bell-foa-energy.mp4",
-      },
-      {
-        id: "telephone",
-        label: "Telephone",
-        groundTruth: "assets/demos/synthetic/k4/telephone-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/telephone-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/telephone-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/telephone-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/telephone-foa-energy.mp4",
-      },
-      {
         id: "laughter",
         label: "Laughter",
         groundTruth: "assets/demos/synthetic/k4/laughter-gt.webm",
@@ -179,6 +161,24 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k4/domestic-sounds-predicted.webm",
         predictedAudio: "assets/demos/synthetic/k4/audio/domestic-sounds-predicted-foa.wav",
         energy: "assets/demos/synthetic/k4/domestic-sounds-foa-energy.mp4",
+      },
+      {
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k4/bell-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4/bell-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k4/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4/bell-foa-energy.mp4",
+      },
+      {
+        id: "telephone",
+        label: "Telephone",
+        groundTruth: "assets/demos/synthetic/k4/telephone-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4/audio/telephone-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4/telephone-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k4/audio/telephone-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4/telephone-foa-energy.mp4",
       },
     ],
   },
