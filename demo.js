@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261026-synthetic-k2-006-1";
+const PLAYER_VERSION = "20261026-synthetic-k2-music165-2";
 
 const stairs26Scenes = [
   {
@@ -76,27 +76,27 @@ const syntheticScenes = [
   {
     id: "synthetic-k2",
     title: "Example #1",
-    initialYaw: -60,
+    initialYaw: 130,
     mixture: "assets/demos/synthetic/k2/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
     queries: [
       {
-        id: "bell",
-        label: "Bell",
-        groundTruth: "assets/demos/synthetic/k2/mixture.webm",
-        groundTruthAudio: "assets/demos/synthetic/k2/audio/bell-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k2/mixture.webm",
-        predictedAudio: "assets/demos/synthetic/k2/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/bell-foa-energy.mp4",
+        id: "music",
+        label: "Music",
+        groundTruth: "assets/demos/synthetic/k2/music-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2/audio/music-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2/music-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k2/audio/music-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2/music-foa-energy.mp4",
       },
       {
-        id: "door-or-cupboard",
-        label: "Door or cupboard",
-        groundTruth: "assets/demos/synthetic/k2/mixture.webm",
-        groundTruthAudio: "assets/demos/synthetic/k2/audio/door-or-cupboard-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k2/mixture.webm",
-        predictedAudio: "assets/demos/synthetic/k2/audio/door-or-cupboard-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/door-or-cupboard-foa-energy.mp4",
+        id: "laughter",
+        label: "Laughter",
+        groundTruth: "assets/demos/synthetic/k2/laughter-gt.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2/audio/laughter-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2/laughter-predicted.webm",
+        predictedAudio: "assets/demos/synthetic/k2/audio/laughter-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2/laughter-foa-energy.mp4",
       },
     ],
   },
