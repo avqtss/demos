@@ -67,6 +67,11 @@
       transform: translateY(1px);
     }
 
+    .player-button:disabled {
+      cursor: wait;
+      opacity: 0.85;
+    }
+
     .fullscreen-button {
       position: absolute;
       right: 12px;
@@ -136,6 +141,7 @@
   <script>
     const ROTATION_SIGN = -1;
     let controller = null;
+    let controllerPromise = null;
 
     const showError = (error) => {
       console.error(error);
@@ -187,7 +193,7 @@
 
       const audio = document.createElement("audio");
       audio.crossOrigin = "anonymous";
-      audio.preload = "metadata";
+      audio.preload = "auto";
       audio.src = audioUrl;
       document.body.appendChild(audio);
 
@@ -273,7 +279,7 @@
         const video = document.createElement("video");
         video.id = "player-video";
         video.crossOrigin = "anonymous";
-        video.preload = "metadata";
+        video.preload = "auto";
         video.playsInline = true;
         video.setAttribute("webkit-playsinline", "");
         video.setAttribute("aria-label", label);
@@ -321,30 +327,52 @@
           }
           return camera.object3D ? camera.object3D.rotation.y : 0;
         };
-        const getController = async () => {
-          if (!controller) controller = await createFOAController(audioUrl, getCameraYaw);
-          return controller;
+        const getController = () => {
+          if (!controllerPromise) {
+            controllerPromise = createFOAController(audioUrl, getCameraYaw)
+              .then((value) => {
+                controller = value;
+                return value;
+              })
+              .catch((error) => {
+                controllerPromise = null;
+                throw error;
+              });
+          }
+          return controllerPromise;
         };
 
         let isPlaying = false;
+        let isStarting = false;
         const setPausedState = () => {
           isPlaying = false;
-          playButton.textContent = "Play";
+          if (!isStarting) playButton.textContent = "Play";
           if (controller) controller.pause();
         };
 
         const startAt = async (seconds) => {
-          const audioController = await getController();
-          await audioController.playFrom(seconds);
+          if (isStarting) return;
+          isStarting = true;
+          playButton.disabled = true;
+          playButton.textContent = "Loading...";
           try {
-            await video.play();
+            const audioController = await getController();
+            video.currentTime = Math.max(0, seconds || 0);
+            await Promise.all([
+              audioController.playFrom(video.currentTime),
+              video.play(),
+            ]);
+            isPlaying = true;
+            playButton.textContent = "Pause";
+            window.parent.postMessage({ type: "avqtss-player-started" }, window.location.origin);
           } catch (error) {
-            audioController.pause();
+            if (controller) controller.pause();
             throw error;
+          } finally {
+            isStarting = false;
+            playButton.disabled = false;
+            if (!isPlaying) playButton.textContent = "Play";
           }
-          isPlaying = true;
-          playButton.textContent = "Pause";
-          window.parent.postMessage({ type: "avqtss-player-started" }, window.location.origin);
         };
 
         playButton.addEventListener("click", async () => {
@@ -352,7 +380,11 @@
             if (isPlaying) {
               video.pause();
             } else {
-              await startAt(video.currentTime || 0);
+              const atEnd = video.ended || (
+                Number.isFinite(video.duration)
+                && video.currentTime >= video.duration - 0.05
+              );
+              await startAt(atEnd ? 0 : video.currentTime || 0);
             }
           } catch (error) {
             showError(error);
@@ -396,6 +428,12 @@
         });
 
         loading.style.display = "none";
+        const warmController = () => getController().catch((error) => console.warn(error));
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(warmController, { timeout: 1500 });
+        } else {
+          window.setTimeout(warmController, 250);
+        }
       } catch (error) {
         showError(error);
         const loading = document.querySelector("#loading");

@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261025-real-scenes-6";
+const PLAYER_VERSION = "20261026-synthetic-k2-006-1";
 
 const stairs26Scenes = [
   {
@@ -76,27 +76,27 @@ const syntheticScenes = [
   {
     id: "synthetic-k2",
     title: "Example #1",
-    initialYaw: 130,
+    initialYaw: -60,
     mixture: "assets/demos/synthetic/k2/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k2/audio/mixture-w.wav",
     queries: [
       {
-        id: "music",
-        label: "Music",
-        groundTruth: "assets/demos/synthetic/k2/music-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k2/audio/music-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k2/music-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k2/audio/music-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/music-foa-energy.mp4",
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k2/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k2/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2/bell-foa-energy.mp4",
       },
       {
-        id: "laughter",
-        label: "Laughter",
-        groundTruth: "assets/demos/synthetic/k2/laughter-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k2/audio/laughter-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k2/laughter-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k2/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k2/laughter-foa-energy.mp4",
+        id: "door-or-cupboard",
+        label: "Door or cupboard",
+        groundTruth: "assets/demos/synthetic/k2/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2/audio/door-or-cupboard-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k2/audio/door-or-cupboard-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2/door-or-cupboard-foa-energy.mp4",
       },
     ],
   },
@@ -215,7 +215,7 @@ const createFlatVideo = (label) => {
   const video = document.createElement("video");
   video.className = "flat-video";
   video.playsInline = true;
-  video.preload = "metadata";
+  video.preload = "auto";
   video.setAttribute("aria-label", label);
   video.appendChild(document.createTextNode("Your browser does not support embedded video."));
 
@@ -228,7 +228,7 @@ const createFlatVideo = (label) => {
   rewindButton.textContent = "Rewind";
 
   const playButton = document.createElement("button");
-  playButton.className = "flat-player-button";
+  playButton.className = "flat-player-button flat-player-play";
   playButton.type = "button";
   playButton.textContent = "Play";
 
@@ -246,6 +246,7 @@ const createFlatVideo = (label) => {
   playButton.addEventListener("click", async () => {
     try {
       if (video.paused) {
+        if (video.ended) video.currentTime = 0;
         await video.play();
       } else {
         video.pause();
@@ -303,12 +304,16 @@ const setPlayerSource = (frame, video, audio, label, initialYaw = 0) => {
     yaw: String(initialYaw),
     v: PLAYER_VERSION,
   });
-  frame.src = `demo-player.html?${parameters.toString()}`;
+  const source = `demo-player.html?${parameters.toString()}`;
+  frame.dataset.playerSrc = source;
+  if (frame.dataset.playerActive === "true") frame.src = source;
   frame.title = `${label}, interactive 360-degree video`;
 };
 
 const setFlatVideoSource = (video, source, label) => {
   video.pause();
+  const playButton = video.closest(".flat-player")?.querySelector(".flat-player-play");
+  if (playButton) playButton.textContent = "Play";
   video.removeAttribute("src");
   video.replaceChildren();
 
@@ -472,6 +477,58 @@ const datasets = [
   },
 ];
 
+const setPlayerActive = (frame, active) => {
+  frame.dataset.playerActive = String(active);
+  if (active) {
+    const source = frame.dataset.playerSrc;
+    if (source && frame.getAttribute("src") !== source) frame.src = source;
+    return;
+  }
+
+  pausePlayer(frame);
+  if (frame.getAttribute("src") && frame.getAttribute("src") !== "about:blank") {
+    frame.src = "about:blank";
+  }
+};
+
+const setScenePlayersActive = (scene, active) => {
+  scene.querySelectorAll("iframe.player-frame").forEach((frame) => {
+    setPlayerActive(frame, active);
+  });
+  if (!active) {
+    scene.querySelectorAll("video.flat-video").forEach((video) => video.pause());
+  }
+};
+
+const sceneIsNearViewport = (scene) => {
+  const section = scene.closest(".dataset-section");
+  if (!section || section.hidden) return false;
+  const margin = 200;
+  const bounds = scene.getBoundingClientRect();
+  return bounds.bottom >= -margin && bounds.top <= window.innerHeight + margin;
+};
+
+const refreshDatasetPlayers = (section) => {
+  section.querySelectorAll(".interactive-scene").forEach((scene) => {
+    setScenePlayersActive(scene, sceneIsNearViewport(scene));
+  });
+};
+
+if ("IntersectionObserver" in window) {
+  const sceneObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const section = entry.target.closest(".dataset-section");
+      setScenePlayersActive(entry.target, entry.isIntersecting && section && !section.hidden);
+    });
+  }, { rootMargin: "200px 0px" });
+
+  document.querySelectorAll(".interactive-scene").forEach((scene) => {
+    sceneObserver.observe(scene);
+  });
+} else {
+  datasets.forEach(({ section }) => refreshDatasetPlayers(section));
+}
+
 const selectDataset = (selectedDataset, shouldScroll = true) => {
   datasets.forEach((dataset) => {
     const selected = dataset === selectedDataset;
@@ -479,14 +536,16 @@ const selectDataset = (selectedDataset, shouldScroll = true) => {
     dataset.button.setAttribute("aria-pressed", String(selected));
     dataset.section.hidden = !selected;
     if (!selected) {
-      dataset.section.querySelectorAll("iframe.player-frame").forEach(pausePlayer);
-      dataset.section.querySelectorAll("video.flat-video").forEach((video) => video.pause());
+      dataset.section.querySelectorAll(".interactive-scene").forEach((scene) => {
+        setScenePlayersActive(scene, false);
+      });
     }
   });
 
   if (shouldScroll) {
     selectedDataset.section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+  requestAnimationFrame(() => refreshDatasetPlayers(selectedDataset.section));
 };
 
 if (datasets.every(({ button, section }) => button && section)) {
