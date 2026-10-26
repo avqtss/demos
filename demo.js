@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261026-door-label-3";
+const PLAYER_VERSION = "20261026-door-short-label-4";
 
 const stairs26Scenes = [
   {
@@ -126,7 +126,7 @@ const syntheticScenes = [
       },
       {
         id: "door-or-cupboard",
-        label: "Door opening or closing",
+        label: "Door",
         groundTruth: "assets/demos/synthetic/k3/door-or-cupboard-gt.webm",
         groundTruthAudio: "assets/demos/synthetic/k3/audio/door-or-cupboard-gt-foa.wav",
         predicted: "assets/demos/synthetic/k3/door-or-cupboard-predicted.webm",
