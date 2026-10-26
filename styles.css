@@ -388,7 +388,6 @@ body {
 
 #section-stairs26 .scene-outputs--two {
   width: min(960px, 100%);
-  margin-inline: auto;
 }
 
 .scene-output {
