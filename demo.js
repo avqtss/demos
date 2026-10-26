@@ -128,7 +128,7 @@ const syntheticScenes = [
       },
       {
         id: "door-or-cupboard",
-        label: "Door",
+        label: "Door/Cupboard",
         groundTruth: "assets/demos/synthetic/k3/door-or-cupboard-gt.webm",
         groundTruthAudio: "assets/demos/synthetic/k3/audio/door-or-cupboard-gt-foa.wav",
         predicted: "assets/demos/synthetic/k3/door-or-cupboard-predicted.webm",
