@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261026-real-order-7";
+const PLAYER_VERSION = "20261027-synthetic-example2-1";
 
 let interactivePlayerCount = 0;
 
@@ -103,8 +103,35 @@ const syntheticScenes = [
     ],
   },
   {
-    id: "synthetic-k3",
+    id: "synthetic-k2-natural-006",
     title: "Example #2",
+    initialYaw: -60,
+    mixture: "assets/demos/synthetic/k2-natural-006/mixture.webm",
+    mixtureAudio: "assets/demos/synthetic/k2-natural-006/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k2-natural-006/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2-natural-006/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2-natural-006/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k2-natural-006/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2-natural-006/bell-foa-energy.mp4",
+      },
+      {
+        id: "door-or-cupboard",
+        label: "Door/Cupboard",
+        groundTruth: "assets/demos/synthetic/k2-natural-006/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k2-natural-006/audio/door-or-cupboard-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k2-natural-006/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k2-natural-006/audio/door-or-cupboard-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k2-natural-006/door-or-cupboard-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "synthetic-k3",
+    title: "Example #3",
     mixture: "assets/demos/synthetic/k3/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3/audio/mixture-w.wav",
     queries: [
@@ -139,7 +166,7 @@ const syntheticScenes = [
   },
   {
     id: "synthetic-k4",
-    title: "Example #3",
+    title: "Example #4",
     initialYaw: -59,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
