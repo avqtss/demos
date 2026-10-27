@@ -1,0 +1,80 @@
+{
+  "testRecord": "fictional",
+  "participantCode": "TEST-P0001",
+  "formalSubmission": {
+    "attempted": false,
+    "result": "NOT RUN - University Qualtrics project is not configured and submission is disabled"
+  },
+  "checks": {
+    "demoMediaHttp": "PASS - 6 unique placeholder media files returned HTTP 200",
+    "consent": "PASS - seven statements, age confirmation, version, time, and code recorded",
+    "trialPlan": "PASS - 40 trials; eight hidden methods occur five times each",
+    "playbackAndRatings": "PASS - ratings locked before ended event; both ratings required",
+    "break": "PASS - break shown after formal trial 20",
+    "localCompletion": "PASS - 40 fictional responses exported; no network submission",
+    "localDeletion": "PASS - browser-local fictional record removed",
+    "noExternalSubmission": "PASS - browser requests used only the configured localhost test origin"
+  },
+  "mediaHttpChecks": {
+    "assets/video/demo-scene.mp4": {
+      "status": 200,
+      "bytes": 280447,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": 1280,
+        "height": 640
+      }
+    },
+    "assets/audio/demo-door.wav": {
+      "status": 200,
+      "bytes": 480044,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": null,
+        "height": null
+      }
+    },
+    "assets/audio/demo-knock.wav": {
+      "status": 200,
+      "bytes": 480044,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": null,
+        "height": null
+      }
+    },
+    "assets/audio/demo-bell.wav": {
+      "status": 200,
+      "bytes": 480044,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": null,
+        "height": null
+      }
+    },
+    "assets/audio/demo-door-reference.wav": {
+      "status": 200,
+      "bytes": 480044,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": null,
+        "height": null
+      }
+    },
+    "assets/audio/demo-bell-reference.wav": {
+      "status": 200,
+      "bytes": 480044,
+      "metadata": {
+        "durationSeconds": 5,
+        "width": null,
+        "height": null
+      }
+    }
+  },
+  "networkOriginsObserved": [
+    "http://127.0.0.1:8770"
+  ],
+  "consoleErrors": [],
+  "requestFailures": [],
+  "result": "PASS"
+}

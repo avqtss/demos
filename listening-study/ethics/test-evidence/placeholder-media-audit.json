@@ -1,0 +1,56 @@
+{
+  "status": "PLACEHOLDER MEDIA ONLY - not the final 40 method-specific stimuli",
+  "checkedFiles": 6,
+  "files": {
+    "assets/audio/demo-bell-reference.wav": {
+      "bytes": 480044,
+      "suffix": ".wav",
+      "channels": 2,
+      "sampleRate": 24000,
+      "sampleWidthBytes": 2,
+      "frames": 120000,
+      "durationSeconds": 5.0
+    },
+    "assets/audio/demo-bell.wav": {
+      "bytes": 480044,
+      "suffix": ".wav",
+      "channels": 2,
+      "sampleRate": 24000,
+      "sampleWidthBytes": 2,
+      "frames": 120000,
+      "durationSeconds": 5.0
+    },
+    "assets/audio/demo-door-reference.wav": {
+      "bytes": 480044,
+      "suffix": ".wav",
+      "channels": 2,
+      "sampleRate": 24000,
+      "sampleWidthBytes": 2,
+      "frames": 120000,
+      "durationSeconds": 5.0
+    },
+    "assets/audio/demo-door.wav": {
+      "bytes": 480044,
+      "suffix": ".wav",
+      "channels": 2,
+      "sampleRate": 24000,
+      "sampleWidthBytes": 2,
+      "frames": 120000,
+      "durationSeconds": 5.0
+    },
+    "assets/audio/demo-knock.wav": {
+      "bytes": 480044,
+      "suffix": ".wav",
+      "channels": 2,
+      "sampleRate": 24000,
+      "sampleWidthBytes": 2,
+      "frames": 120000,
+      "durationSeconds": 5.0
+    },
+    "assets/video/demo-scene.mp4": {
+      "bytes": 280447,
+      "suffix": ".mp4",
+      "note": "Decode, duration, and dimensions are checked in the browser lifecycle test."
+    }
+  }
+}

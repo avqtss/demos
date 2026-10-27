@@ -1,6 +1,6 @@
 # AV-QTSS subjective evaluation site
 
-Static ethics-review prototype for the MOS-C and MOS-S listening test described in the paper.
+Static pre-recruitment ethics-review prototype for the proposed AV-QTSS MOS-C and MOS-S listening task. No formal participant data are accepted.
 
 ## Protocol implemented
 
@@ -13,19 +13,23 @@ Static ethics-review prototype for the MOS-C and MOS-S listening test described 
 - Method-blind, block-randomised presentation with deterministic session records.
 - Headphone volume and left/right channel checks.
 - Mandatory complete playback before ratings unlock.
-- Mid-study break, browser-local progress, and coded CSV/JSON export.
+- Mid-study break, browser-local progress, fictional coded CSV/JSON export, and browser-local deletion.
+- Seven mandatory University-template consent statements, with version, time, and participant code recorded together.
 
 ## Ethics-review status
 
-`study-config.js` currently has `demoMode: true`. The included media are interface-demonstration placeholders copied from an existing AV-QTSS audition pack. They must not be used to collect paper results.
+`study-config.js` currently has `demoMode: true` and `submission.enabled: false`. The included media are interface-demonstration placeholders copied from an existing AV-QTSS audition pack. They must not be used to collect research results.
 
 Before ethics submission or participant recruitment:
 
-1. Replace the researcher email, supervisor contact, and ethics reference in `study-config.js`.
+1. Obtain Ethics RM approval and replace `Pending approval` with the reference.
 2. Add five approved study stimuli. Each stimulus must provide one binaurally decoded output for every method in `audioByMethod`.
-3. Select and configure an institution-approved submission and storage service.
-4. Confirm the participant information, withdrawal deadline, data controller, retention period, secure transfer procedure, recruitment text, compensation, and inclusion/exclusion criteria against the approved protocol.
-5. Set `demoMode: false`. Startup validation will reject any missing method audio.
+3. Create and validate the proposed University Qualtrics project and restricted University storage workflow.
+4. Confirm the server region, access, retention, backup deletion, participant-code lookup, and withdrawal deadline.
+5. Compare the consent text with the researcher's private Section 8.1 draft.
+6. Set `demoMode: false` and enable submission only after end-to-end fictional testing. Startup validation will reject missing method audio.
+
+See [`ETHICS_WEBPAGE_AND_DATA_FLOW.md`](ETHICS_WEBPAGE_AND_DATA_FLOW.md) for the review pack index.
 
 ## Run locally
 

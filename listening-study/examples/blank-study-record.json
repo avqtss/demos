@@ -1,11 +1,19 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "appVersion": "",
   "studyId": "AVQTSS-MOS-01",
   "demoMode": false,
   "participantCode": "",
   "sessionId": "",
-  "consentedAt": null,
+  "consent": {
+    "formVersion": "",
+    "formDate": "",
+    "participantInformationVersion": "",
+    "participantInformationDate": "",
+    "statementIds": [],
+    "eligibilityConfirmed": null,
+    "consentedAt": null
+  },
   "startedAt": null,
   "completedAt": null,
   "randomisationSeed": null,
@@ -39,5 +47,6 @@
   ],
   "userAgent": "",
   "language": "",
-  "exportedAt": null
+  "submissionReceipt": null,
+  "recordGeneratedAt": null
 }

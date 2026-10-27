@@ -279,8 +279,7 @@ h3 {
 }
 
 .consent-form {
-  position: sticky;
-  top: 20px;
+  position: static;
 }
 
 .consent-form h2,
@@ -306,6 +305,34 @@ h3 {
   height: 18px;
   margin: 3px 0 0;
   accent-color: var(--accent);
+}
+
+.eligibility-row {
+  padding: 12px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.consent-divider {
+  padding-top: 4px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.participant-code-summary {
+  margin-bottom: 22px;
+  padding: 10px 12px;
+  background: var(--surface-muted);
+  border-left: 3px solid var(--accent);
+}
+
+.notice-panel.compact {
+  margin: 18px 0;
+  padding: 13px 15px;
 }
 
 .primary-button,

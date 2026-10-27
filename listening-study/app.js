@@ -25,7 +25,15 @@
       phase: "consent",
       sessionId: createSessionId(),
       participantCode: "",
-      consentedAt: null,
+      consent: {
+        formVersion: config.consentForm.version,
+        formDate: config.consentForm.date,
+        participantInformationVersion: config.participantInformation.version,
+        participantInformationDate: config.participantInformation.date,
+        statementIds: [],
+        eligibilityConfirmed: false,
+        consentedAt: null,
+      },
       setup: {
         quietConfirmed: false,
         headphonesConfirmed: false,
@@ -42,6 +50,7 @@
       passedBreaks: [],
       startedAt: null,
       completedAt: null,
+      submissionReceipt: null,
     };
   }
 
@@ -80,6 +89,7 @@
 
   function initialiseChrome() {
     document.getElementById("institutionName").textContent = config.institution;
+    document.getElementById("studyName").textContent = config.title;
     document.getElementById("footerStudyId").textContent = `Study ID: ${config.studyId}`;
     document.getElementById("plannedParticipants").textContent = `${config.plannedRecruitment.minimum}-${config.plannedRecruitment.maximum} adults, maximum ${config.plannedRecruitment.maximum}`;
     document.getElementById("plannedDuration").textContent = `${config.estimatedMinutes} minutes`;
@@ -137,64 +147,92 @@
     app.innerHTML = `
       <div class="page-heading">
         <p class="eyebrow">Participant information and consent</p>
-        <h1>${escapeHtml(config.title)}</h1>
-        <p class="lead">${escapeHtml(config.subtitle)}. Please read this page before deciding whether to take part.</p>
+        <h1>${escapeHtml(config.projectTitle)}</h1>
+        <p class="lead"><strong>Proposed task:</strong> ${escapeHtml(config.title)}. ${escapeHtml(config.subtitle)}.</p>
       </div>
-      ${config.demoMode ? '<div class="notice-panel warning"><p><strong>Pre-recruitment demonstration:</strong> this page illustrates the proposed participant journey. Recruitment and formal data collection have not started.</p></div>' : ''}
+      ${config.demoMode ? '<div class="notice-panel warning"><p><strong>Pre-recruitment ethics-review prototype:</strong> this page is not open for participation. No participants have been recruited and no formal ratings have been collected. Any entries made here are fictional test records that remain in this browser unless downloaded.</p></div>' : ''}
       ${resumeMarkup}
       <div class="two-column">
         <div class="information-sections">
           <section>
-            <h2>What is the study?</h2>
-            <p>You will listen through headphones to short binaural spatial-audio clips generated from 360° scenes. The study compares eight anonymised processing systems. You will hear five clips from each system, presented in random order.</p>
+            <h2>Why is the study being done?</h2>
+            <p>This proposed AV-QTSS task is part of the project <em>${escapeHtml(config.projectTitle)}</em>. It will evaluate content correctness and perceived spatial accuracy for spatial audio generated from audiovisual scenes. This webpage covers only the AV-QTSS task described here; it does not provide consent for other studies in the wider project.</p>
+          </section>
+          <section>
+            <h2>Why have I been invited?</h2>
+            <p>The planned study will recruit ${config.plannedRecruitment.minimum}-${config.plannedRecruitment.maximum} volunteers aged ${config.minimumAge} or over, with an absolute maximum of ${config.plannedRecruitment.maximum}. Participants will need to use headphones and be able to hear the volume and left/right channel checks comfortably.</p>
           </section>
           <section>
             <h2>What will I do?</h2>
-            <p>After an equipment check and one practice trial, you will complete 40 formal trials. For each five-second clip, you will rate content correctness and perceived spatial accuracy on separate 1–5 scales. The study takes approximately ${config.estimatedMinutes} minutes, including a scheduled break.</p>
+            <p>You will first complete a comfortable-volume check, a left/right channel check, and one unscored practice trial. You will then complete 40 formal trials: five five-second clips from each of eight anonymised methods, in random order. On every trial, you will rate content correctness and perceived spatial accuracy on separate 1-5 scales. A break appears after formal trial 20. The full session is expected to take ${config.estimatedMinutes} minutes.</p>
+            <p>You may pause, resume, or replay the current clip. You cannot skip either rating. You may change an answer while the current trial is open, but after selecting <strong>Save ratings and continue</strong> you cannot return to edit that trial.</p>
           </section>
           <section>
             <h2>Voluntary participation</h2>
-            <p>Taking part is voluntary. You may pause or stop at any time without giving a reason. Before submitting your results, you can withdraw by closing the page and asking the researcher to delete any downloaded local record associated with your participant code.</p>
+            <p>Taking part will be voluntary. You may pause or stop during the study at any time without giving a reason. In this prototype, closing the page stops the demonstration and <strong>Restart</strong> deletes its browser-local record.</p>
+            <p>The procedure and deadline for withdrawing formally submitted data have not yet been approved. They will be inserted here only after the University submission service, participant-code lookup, primary-storage deletion, and backup handling have been configured and tested. Formal recruitment will not begin before that work is complete.</p>
           </section>
           <section>
-            <h2>Possible risks</h2>
-            <p>The study involves ordinary audio at a level that you control. Set a comfortable volume before starting. Stop immediately if you experience discomfort, fatigue, dizziness, or hearing strain.</p>
+            <h2>Possible risks and benefits</h2>
+            <p>Listening and viewing for up to ${config.estimatedMinutes} minutes may cause temporary listening fatigue, eye strain, dizziness, or discomfort. You will control the volume and may pause, take an additional break, or stop. Stop immediately if you experience discomfort or hearing strain. There is no guaranteed personal benefit from taking part.</p>
           </section>
           <section>
-            <h2>Data collected</h2>
-            <p>The study will record an assigned participant code, two ratings per trial, playback counts, response timing, randomisation order, and basic browser information. It will not request your name, email address, microphone, camera, or voice. The website host may separately create technical access logs, as explained under Privacy and withdrawal.</p>
+            <h2>Data, confidentiality, and submission</h2>
+            <p>The proposed study record contains an assigned participant code; consent version, selected statements, and time; two ratings per trial; playback counts; response timing; randomisation information; and limited browser information. This webpage does not request your name, email address, microphone, camera, voice, or precise location. The host may separately create technical access logs, as explained under Privacy and withdrawal.</p>
+            <p>The proposed formal receiving service is University of Surrey Qualtrics, followed by transfer to restricted University SharePoint or OneDrive. This has not yet been configured or approved for this study. The server region, retention period, backup handling, and deletion procedure remain to be confirmed. This prototype sends no ratings to Qualtrics or to the research team.</p>
+          </section>
+          <section>
+            <h2>Funding and review status</h2>
+            <p>This proposed listening task has ${escapeHtml(config.funding).toLowerCase()}. University of Surrey ethics reference: ${escapeHtml(config.ethicsReference)}. Recruitment will not open unless approval is granted and the remaining data-handling requirements are completed.</p>
           </section>
           <section>
             <h2>Contacts</h2>
-            <p>Researcher: ${escapeHtml(config.researcher.name)}<br>Email: ${escapeHtml(config.researcher.email)}<br>Supervisor: ${escapeHtml(config.researcher.supervisor)}<br>Ethics reference: ${escapeHtml(config.ethicsReference)}</p>
+            <p>Researcher: ${escapeHtml(config.researcher.name)} (<a href="mailto:${escapeAttribute(config.researcher.email)}">${escapeHtml(config.researcher.email)}</a>)<br>Supervisor: ${escapeHtml(config.researcher.supervisor)} (<a href="mailto:${escapeAttribute(config.researcher.supervisorEmail)}">${escapeHtml(config.researcher.supervisorEmail)}</a>)</p>
+            <p>Questions can be sent to the researcher before deciding whether to participate.</p>
           </section>
         </div>
 
         <form class="consent-form" id="consentForm">
-          <h2>Consent</h2>
+          <h2>Consent preview</h2>
+          <p class="fine-print"><strong>Review only:</strong> selecting these boxes does not enrol you or submit data while this page remains a pre-approval prototype.</p>
+          <div class="form-field">
+            <label for="participantCode">Assigned participant code</label>
+            <input id="participantCode" name="participantCode" type="text" maxlength="32" autocomplete="off" spellcheck="false" value="${escapeHtml(state.participantCode)}" placeholder="e.g. TEST-P0001">
+            <div class="field-hint">Use only a fictional test code on this prototype. Do not enter a name or email address.</div>
+          </div>
           <div class="check-list">
-            <label class="check-row"><input type="checkbox" name="consent" value="information"><span>I have read and understood the participant information above.</span></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="questions"><span>I have had the opportunity to ask questions before taking part.</span></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="voluntary"><span>I understand that participation is voluntary and that I may stop without giving a reason.</span></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="data"><span>I understand what coded study data will be collected and how withdrawal works.</span></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="age"><span>I confirm that I am at least ${config.minimumAge} years old.</span></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="agree"><span>I freely consent to participate in this listening study.</span></label>
+            <label class="check-row eligibility-row"><input type="checkbox" id="ageConfirmed" name="eligibility" value="age"><span>I confirm that I am at least ${config.minimumAge} years old.</span></label>
+            <div class="consent-divider">Seven mandatory consent statements</div>
+            ${config.consentForm.statements.map((statement, index) => `<label class="check-row"><input type="checkbox" name="consent" value="${escapeAttribute(statement.id)}"><span><strong>${index + 1}.</strong> ${escapeHtml(statement.text)}</span></label>`).join("")}
           </div>
           <button class="primary-button" id="consentContinue" type="submit" disabled>Continue to equipment check</button>
-          <p class="fine-print">Consent time is stored with the coded session record.</p>
+          <p class="fine-print">The consent-form version, participant-information version, selected statement IDs, consent time, age confirmation, and participant code are stored together in the coded session record.</p>
         </form>
       </div>`;
 
     const form = document.getElementById("consentForm");
     const consentBoxes = Array.from(form.querySelectorAll('input[type="checkbox"]'));
     const continueButton = document.getElementById("consentContinue");
-    form.addEventListener("change", () => {
-      continueButton.disabled = !consentBoxes.every((box) => box.checked);
-    });
+    const updateConsentButton = () => {
+      const code = document.getElementById("participantCode").value.trim();
+      continueButton.disabled = code.length < 3 || !consentBoxes.every((box) => box.checked);
+    };
+    form.addEventListener("change", updateConsentButton);
+    document.getElementById("participantCode").addEventListener("input", updateConsentButton);
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (!consentBoxes.every((box) => box.checked)) return;
-      state.consentedAt = new Date().toISOString();
+      const code = document.getElementById("participantCode").value.trim();
+      if (code.length < 3 || !consentBoxes.every((box) => box.checked)) return;
+      state.participantCode = code;
+      state.consent = {
+        formVersion: config.consentForm.version,
+        formDate: config.consentForm.date,
+        participantInformationVersion: config.participantInformation.version,
+        participantInformationDate: config.participantInformation.date,
+        statementIds: config.consentForm.statements.map((statement) => statement.id),
+        eligibilityConfirmed: true,
+        consentedAt: new Date().toISOString(),
+      };
       state.phase = "setup";
       saveState();
       render();
@@ -221,11 +259,7 @@
         <p class="lead">Use the same headphones, listening level, and seated position throughout the study.</p>
       </div>
       <form class="setup-form" id="setupForm">
-        <div class="form-field">
-          <label for="participantCode">Assigned participant code</label>
-          <input id="participantCode" name="participantCode" type="text" maxlength="32" autocomplete="off" spellcheck="false" value="${escapeHtml(state.participantCode)}" placeholder="e.g. P012">
-          <div class="field-hint">Use the code provided by the researcher. Do not enter your name or email address.</div>
-        </div>
+        <p class="participant-code-summary">Participant code: <strong>${escapeHtml(state.participantCode)}</strong></p>
 
         <div class="check-list">
           <label class="check-row"><input id="headphonesConfirmed" type="checkbox" ${state.setup.headphonesConfirmed ? "checked" : ""}><span>I am wearing headphones and can keep them on for the whole study.</span></label>
@@ -255,18 +289,14 @@
 
     document.getElementById("calibrationButton").addEventListener("click", playCalibration);
     document.getElementById("channelButton").addEventListener("click", playChannelCheck);
-    document.getElementById("participantCode").addEventListener("input", updateSetupContinueButton);
     document.getElementById("headphonesConfirmed").addEventListener("change", updateSetupContinueButton);
     document.getElementById("quietConfirmed").addEventListener("change", updateSetupContinueButton);
     updateSetupContinueButton();
     document.getElementById("setupForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      const code = document.getElementById("participantCode").value.trim();
-      state.participantCode = code;
       state.setup.headphonesConfirmed = document.getElementById("headphonesConfirmed").checked;
       state.setup.quietConfirmed = document.getElementById("quietConfirmed").checked;
       const missing = [];
-      if (code.length < 3) missing.push("Enter the assigned participant code.");
       if (!state.setup.headphonesConfirmed) missing.push("Confirm that you are wearing headphones.");
       if (!state.setup.quietConfirmed) missing.push("Confirm that the room is quiet.");
       if (!state.setup.calibrationPlayed) missing.push("Play the volume sample.");
@@ -350,9 +380,7 @@
   function updateSetupContinueButton() {
     const button = document.getElementById("practiceButton");
     if (!button) return;
-    const code = document.getElementById("participantCode").value.trim();
-    const ready = code.length >= 3
-      && document.getElementById("headphonesConfirmed").checked
+    const ready = document.getElementById("headphonesConfirmed").checked
       && document.getElementById("quietConfirmed").checked
       && state.setup.calibrationPlayed
       && state.setup.channelsChecked;
@@ -695,38 +723,76 @@
   }
 
   function renderComplete() {
-    setStep("Study complete");
+    setStep(config.demoMode ? "Prototype complete" : "Ready to submit");
     const completionCode = `${config.studyId}-${state.sessionId.slice(0, 8).toUpperCase()}`;
+    const submissionMarkup = config.submission.enabled
+      ? `<button class="primary-button" id="submitStudyButton" type="button">Submit coded ratings securely</button>`
+      : `<button class="primary-button" type="button" disabled>Formal submission unavailable</button>`;
+    const prototypeTools = config.demoMode
+      ? `<button class="secondary-button" id="downloadCsvButton" type="button">Download fictional test CSV</button>
+          <button class="secondary-button" id="downloadJsonButton" type="button">Download fictional test JSON</button>
+          <button class="danger-button" id="deleteLocalRecordButton" type="button">Delete local test record</button>`
+      : "";
     app.innerHTML = `
       <div class="page-heading">
-        <p class="eyebrow">Completed</p>
-        <h1>Thank you for taking part</h1>
+        <p class="eyebrow">${config.demoMode ? "Fictional test run completed" : "All ratings completed"}</p>
+        <h1>${config.demoMode ? "Prototype complete - no data submitted" : "Review and submit"}</h1>
         <p class="lead">All ${state.responses.length} formal trials are complete.</p>
       </div>
       <section class="completion-panel">
         <h2>Completion code</h2>
         <div class="completion-code">${escapeHtml(completionCode)}</div>
-        <p>In this local ethics-review prototype, no data has been uploaded. Download the coded record and provide it to the researcher using the approved transfer procedure.</p>
+        <p><strong>Submission status:</strong> <span id="submissionStatus">${state.submissionReceipt ? "Submission acknowledged" : escapeHtml(config.submission.status)}</span></p>
+        ${config.demoMode ? `<div class="notice-panel warning compact"><p><strong>No research data has been uploaded.</strong> The proposed University Qualtrics connection is disabled. Downloads are provided only as fictional ethics-review examples and must not be treated as participant submissions.</p></div>` : ""}
         <div class="button-row">
-          <button class="primary-button" id="downloadCsvButton" type="button">Download CSV</button>
-          <button class="secondary-button" id="downloadJsonButton" type="button">Download JSON</button>
+          ${submissionMarkup}
+          ${prototypeTools}
         </div>
-        <p class="fine-print">The JSON file contains the condition mapping and full audit trail. The CSV contains one row per formal trial.</p>
+        <div class="error-message hidden" id="submissionError" role="alert"></div>
+        <p class="fine-print">The JSON file contains the condition mapping and full audit trail. The CSV contains one row per formal trial. Downloaded copies must be deleted separately.</p>
       </section>`;
-    document.getElementById("downloadCsvButton").addEventListener("click", downloadCsv);
-    document.getElementById("downloadJsonButton").addEventListener("click", downloadJson);
+    document.getElementById("submitStudyButton")?.addEventListener("click", submitStudyRecord);
+    document.getElementById("downloadCsvButton")?.addEventListener("click", downloadCsv);
+    document.getElementById("downloadJsonButton")?.addEventListener("click", downloadJson);
+    document.getElementById("deleteLocalRecordButton")?.addEventListener("click", deleteLocalRecord);
+  }
+
+  async function submitStudyRecord() {
+    const button = document.getElementById("submitStudyButton");
+    const status = document.getElementById("submissionStatus");
+    const error = document.getElementById("submissionError");
+    button.disabled = true;
+    status.textContent = "Submitting to the approved University survey...";
+    error.classList.add("hidden");
+    try {
+      state.submissionReceipt = await window.AVQTSSSubmissionBridge.submit(buildStudyRecord(), config);
+      status.textContent = "Submission acknowledged by the University survey";
+      button.textContent = "Submitted";
+      saveState();
+    } catch (submissionError) {
+      status.textContent = "Submission not completed";
+      error.textContent = submissionError.message;
+      error.classList.remove("hidden");
+      button.disabled = false;
+    }
   }
 
   function downloadCsv() {
     const columns = [
-      "study_id", "participant_code", "session_id", "trial_number", "block",
+      "study_id", "app_version", "participant_code", "session_id",
+      "consent_form_version", "participant_information_version", "consented_at",
+      "trial_number", "block",
       "anonymous_condition", "method_id", "stimulus_id", "scene_id", "query",
       "mos_c", "mos_s", "play_count", "response_seconds", "submitted_at",
     ];
     const rows = state.responses.map((response, index) => ({
       study_id: config.studyId,
+      app_version: config.appVersion,
       participant_code: state.participantCode,
       session_id: state.sessionId,
+      consent_form_version: state.consent.formVersion,
+      participant_information_version: state.consent.participantInformationVersion,
+      consented_at: state.consent.consentedAt,
       trial_number: index + 1,
       block: response.block,
       anonymous_condition: response.anonymousCondition,
@@ -747,14 +813,18 @@
   }
 
   function downloadJson() {
-    const record = {
+    downloadBlob(JSON.stringify(buildStudyRecord(), null, 2), `${safeFilePart(state.participantCode)}_${config.studyId}_record.json`, "application/json");
+  }
+
+  function buildStudyRecord() {
+    return {
       schemaVersion: config.schemaVersion,
       appVersion: config.appVersion,
       studyId: config.studyId,
       demoMode: config.demoMode,
       participantCode: state.participantCode,
       sessionId: state.sessionId,
-      consentedAt: state.consentedAt,
+      consent: state.consent,
       startedAt: state.startedAt,
       completedAt: state.completedAt,
       randomisationSeed: state.randomisationSeed,
@@ -765,9 +835,9 @@
       responses: state.responses,
       userAgent: navigator.userAgent,
       language: navigator.language,
-      exportedAt: new Date().toISOString(),
+      submissionReceipt: state.submissionReceipt,
+      recordGeneratedAt: new Date().toISOString(),
     };
-    downloadBlob(JSON.stringify(record, null, 2), `${safeFilePart(state.participantCode)}_${config.studyId}_record.json`, "application/json");
   }
 
   function downloadBlob(content, filename, mimeType) {
@@ -786,9 +856,20 @@
     document.getElementById("privacyDialogContent").innerHTML = `
       <p><strong>Research data in this prototype:</strong> ratings and progress remain in this browser's local storage. The page can generate local CSV and JSON downloads, but it has no research-data submission endpoint.</p>
       <p><strong>Hosting logs:</strong> when this page is hosted on GitHub Pages, GitHub receives ordinary web requests and may automatically record technical information such as IP address, request date and time, pages viewed, browser, operating system, device information, and referring page. These service logs are separate from the study record and are not included in the researcher's CSV or JSON export.</p>
-      <p>Before formal deployment, an institution-approved submission service, data controller, retention period, lawful basis, withdrawal deadline, secure transfer route, and ethics reference must be inserted here and in the participant information page.</p>
-      <p>To withdraw before submission, close the page and ask the researcher to delete the record associated with your assigned participant code. Restarting the study removes the local in-browser record.</p>`;
+      <p><strong>Proposed formal route:</strong> coded responses would be received by ${escapeHtml(config.submission.service)} and transferred to ${escapeHtml(config.submission.archiveStorage)}. The University project, server region, approved retention period, backup handling, and access configuration are not yet confirmed. Formal submission therefore remains disabled.</p>
+      <p><strong>Withdrawal status:</strong> ${escapeHtml(config.withdrawal.status)}. The intended request route is: ${escapeHtml(config.withdrawal.participantRoute)}. This will not be presented as an available formal process until it has been approved and tested.</p>
+      <p><strong>Local deletion:</strong> selecting Restart or Delete local test record removes this browser's stored prototype record. It cannot remove files already downloaded, browser backups, or hosting-service logs.</p>`;
     privacyDialog.showModal();
+  }
+
+  function deleteLocalRecord() {
+    const confirmed = window.confirm("Delete this fictional test record from browser local storage? Downloaded files will not be deleted.");
+    if (!confirmed) return;
+    stopMedia();
+    clearSavedState();
+    state = createInitialState();
+    savedState = null;
+    render();
   }
 
   function restartStudy() {
@@ -836,6 +917,7 @@
       ...fresh,
       ...candidate,
       setup: { ...fresh.setup, ...(candidate.setup || {}) },
+      consent: { ...fresh.consent, ...(candidate.consent || {}) },
       responses: Array.isArray(candidate.responses) ? candidate.responses : [],
       trialPlan: Array.isArray(candidate.trialPlan) ? candidate.trialPlan : [],
       passedBreaks: Array.isArray(candidate.passedBreaks) ? candidate.passedBreaks : [],
