@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261027-synthetic-example2-1";
+const PLAYER_VERSION = "20261027-example2-bell032";
 
 let interactivePlayerCount = 0;
 
