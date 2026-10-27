@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="AV-QTSS binaural listening study for content correctness and spatial accuracy.">
+    <title>AV-QTSS Binaural Listening Study</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to study content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-block">
+          <span class="institution" id="institutionName">University of Surrey</span>
+          <span class="study-name">AV-QTSS Binaural Listening Study</span>
+        </div>
+        <div class="header-actions">
+          <span class="step-status" id="stepStatus">Participant information</span>
+          <button class="text-button" id="protocolButton" type="button">Study protocol</button>
+          <button class="text-button hidden" id="resetButton" type="button">Restart</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="prototype-banner hidden" id="prototypeBanner" role="status">
+      <div class="banner-inner">
+        <strong>Pre-recruitment prototype</strong>
+        <span>No participants have been recruited and no formal ratings have been collected. Do not collect research data until the final stimuli, contacts, submission service, and ethics reference are approved.</span>
+      </div>
+    </div>
+
+    <main id="app" class="app-shell" tabindex="-1"></main>
+
+    <footer class="site-footer">
+      <div>
+        <span id="footerStudyId">Study ID: AVQTSS-MOS-01</span>
+        <span aria-hidden="true"> · </span>
+        <button class="footer-button" id="privacyButton" type="button">Privacy and withdrawal</button>
+      </div>
+      <span>No names, email addresses, or voice recordings are collected.</span>
+    </footer>
+
+    <dialog id="protocolDialog" class="info-dialog">
+      <div class="dialog-heading">
+        <h2>Study protocol</h2>
+        <button class="close-button" id="closeProtocolButton" type="button" aria-label="Close study protocol">×</button>
+      </div>
+      <div class="dialog-content">
+        <p>This listening test evaluates content correctness and perceived spatial accuracy for binaurally decoded AV-QTSS outputs.</p>
+        <dl class="protocol-list">
+          <div><dt>Conditions</dt><dd>Eight anonymised processing systems</dd></div>
+          <div><dt>Planned sample</dt><dd><span id="plannedParticipants">12-20 adults, maximum 20</span></dd></div>
+          <div><dt>Duration</dt><dd><span id="plannedDuration">15-30 minutes</span> per participant</dd></div>
+          <div><dt>Material</dt><dd>Five five-second clips per system</dd></div>
+          <div><dt>Total</dt><dd>40 formal trials, plus one practice trial</dd></div>
+          <div><dt>MOS-C</dt><dd>Content correctness, rated from 1 to 5</dd></div>
+          <div><dt>MOS-S</dt><dd>Perceived spatial accuracy, rated from 1 to 5</dd></div>
+          <div><dt>Presentation</dt><dd>Randomised and method-blind, using headphones</dd></div>
+        </dl>
+        <p>The system identity and objective metrics are not shown during rating. The exported research record retains the internal condition key and randomisation map for analysis.</p>
+      </div>
+    </dialog>
+
+    <dialog id="privacyDialog" class="info-dialog">
+      <div class="dialog-heading">
+        <h2>Privacy and withdrawal</h2>
+        <button class="close-button" id="closePrivacyButton" type="button" aria-label="Close privacy information">×</button>
+      </div>
+      <div class="dialog-content" id="privacyDialogContent"></div>
+    </dialog>
+
+    <script src="study-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

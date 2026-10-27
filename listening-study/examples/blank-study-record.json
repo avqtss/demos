@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "",
+  "studyId": "AVQTSS-MOS-01",
+  "demoMode": false,
+  "participantCode": "",
+  "sessionId": "",
+  "consentedAt": null,
+  "startedAt": null,
+  "completedAt": null,
+  "randomisationSeed": null,
+  "blindMap": {},
+  "methods": [],
+  "plannedRecruitment": {
+    "minimum": 12,
+    "maximum": 20
+  },
+  "responseCount": 0,
+  "responses": [
+    {
+      "trialId": "",
+      "block": null,
+      "methodId": "",
+      "anonymousCondition": "",
+      "stimulusId": "",
+      "sceneId": "",
+      "query": "",
+      "video": "",
+      "audio": "",
+      "mosC": null,
+      "mosS": null,
+      "playCount": null,
+      "openedAt": null,
+      "firstPlayedAt": null,
+      "completedPlaybackAt": null,
+      "submittedAt": null,
+      "responseSeconds": null
+    }
+  ],
+  "userAgent": "",
+  "language": "",
+  "exportedAt": null
+}
