@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-example4-clean-view";
+const PLAYER_VERSION = "20261028-add-k4-match-013";
 
 let interactivePlayerCount = 0;
 
@@ -202,8 +202,53 @@ const syntheticScenes = [
     ],
   },
   {
-    id: "synthetic-k4",
+    id: "synthetic-k4-match-013",
     title: "Example #5",
+    initialYaw: 0,
+    mixture: "assets/demos/synthetic/k4-match-013/mixture.webm",
+    mixtureAudio: "assets/demos/synthetic/k4-match-013/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "domestic-sounds",
+        label: "Domestic sounds",
+        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4-match-013/domestic-sounds-foa-energy.mp4",
+      },
+      {
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4-match-013/bell-foa-energy.mp4",
+      },
+      {
+        id: "male-speech",
+        label: "Male speech",
+        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/male-speech-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/male-speech-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4-match-013/male-speech-foa-energy.mp4",
+      },
+      {
+        id: "knock",
+        label: "Knock",
+        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/knock-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/knock-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4-match-013/knock-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "synthetic-k4",
+    title: "Example #6",
     initialYaw: -59,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
