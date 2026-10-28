@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-k4-match-query-order";
+const PLAYER_VERSION = "20261028-hide-legacy-k4";
 
 let interactivePlayerCount = 0;
 
@@ -243,51 +243,6 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
         predictedAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-predicted-foa.wav",
         energy: "assets/demos/synthetic/k4-match-013/domestic-sounds-foa-energy.mp4",
-      },
-    ],
-  },
-  {
-    id: "synthetic-k4",
-    title: "Example #6",
-    initialYaw: -59,
-    mixture: "assets/demos/synthetic/k4/mixture.webm",
-    mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
-    queries: [
-      {
-        id: "laughter",
-        label: "Laughter",
-        groundTruth: "assets/demos/synthetic/k4/laughter-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/laughter-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/laughter-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/laughter-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/laughter-foa-energy.mp4",
-      },
-      {
-        id: "domestic-sounds",
-        label: "Domestic sounds",
-        groundTruth: "assets/demos/synthetic/k4/domestic-sounds-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/domestic-sounds-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/domestic-sounds-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/domestic-sounds-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/domestic-sounds-foa-energy.mp4",
-      },
-      {
-        id: "bell",
-        label: "Bell",
-        groundTruth: "assets/demos/synthetic/k4/bell-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/bell-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/bell-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/bell-foa-energy.mp4",
-      },
-      {
-        id: "telephone",
-        label: "Telephone",
-        groundTruth: "assets/demos/synthetic/k4/telephone-gt.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4/audio/telephone-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4/telephone-predicted.webm",
-        predictedAudio: "assets/demos/synthetic/k4/audio/telephone-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4/telephone-foa-energy.mp4",
       },
     ],
   },
