@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-synthetic-k3-semantic-1";
+const PLAYER_VERSION = "20261028-synthetic-k3-semantic-2";
 
 let interactivePlayerCount = 0;
 
@@ -132,9 +132,19 @@ const syntheticScenes = [
   {
     id: "synthetic-k3-semantic-001",
     title: "Example #3",
+    initialYaw: -35,
     mixture: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3-semantic-001/audio/mixture-w.wav",
     queries: [
+      {
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k3-semantic-001/bell-foa-energy.mp4",
+      },
       {
         id: "door-or-cupboard",
         label: "Door/Cupboard",
@@ -152,15 +162,6 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
         predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/knock-predicted-foa.wav",
         energy: "assets/demos/synthetic/k3-semantic-001/knock-foa-energy.mp4",
-      },
-      {
-        id: "bell",
-        label: "Bell",
-        groundTruth: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
-        groundTruthAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
-        predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k3-semantic-001/bell-foa-energy.mp4",
       },
     ],
   },
