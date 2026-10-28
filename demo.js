@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-synthetic-k3-semantic-2";
+const PLAYER_VERSION = "20261028-example2-door170";
 
 let interactivePlayerCount = 0;
 
