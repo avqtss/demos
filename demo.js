@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-example2-door170";
+const PLAYER_VERSION = "20261028-example4-clean-view";
 
 let interactivePlayerCount = 0;
 
@@ -168,6 +168,7 @@ const syntheticScenes = [
   {
     id: "synthetic-k3",
     title: "Example #4",
+    initialYaw: 15,
     mixture: "assets/demos/synthetic/k3/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3/audio/mixture-w.wav",
     queries: [
