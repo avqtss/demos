@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261027-example2-bell032";
+const PLAYER_VERSION = "20261028-synthetic-k3-semantic-1";
 
 let interactivePlayerCount = 0;
 
@@ -130,8 +130,43 @@ const syntheticScenes = [
     ],
   },
   {
-    id: "synthetic-k3",
+    id: "synthetic-k3-semantic-001",
     title: "Example #3",
+    mixture: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+    mixtureAudio: "assets/demos/synthetic/k3-semantic-001/audio/mixture-w.wav",
+    queries: [
+      {
+        id: "door-or-cupboard",
+        label: "Door/Cupboard",
+        groundTruth: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k3-semantic-001/audio/door-or-cupboard-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/door-or-cupboard-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k3-semantic-001/door-or-cupboard-foa-energy.mp4",
+      },
+      {
+        id: "knock",
+        label: "Knock",
+        groundTruth: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k3-semantic-001/audio/knock-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/knock-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k3-semantic-001/knock-foa-energy.mp4",
+      },
+      {
+        id: "bell",
+        label: "Bell",
+        groundTruth: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k3-semantic-001/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k3-semantic-001/audio/bell-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k3-semantic-001/bell-foa-energy.mp4",
+      },
+    ],
+  },
+  {
+    id: "synthetic-k3",
+    title: "Example #4",
     mixture: "assets/demos/synthetic/k3/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k3/audio/mixture-w.wav",
     queries: [
@@ -166,7 +201,7 @@ const syntheticScenes = [
   },
   {
     id: "synthetic-k4",
-    title: "Example #4",
+    title: "Example #5",
     initialYaw: -59,
     mixture: "assets/demos/synthetic/k4/mixture.webm",
     mixtureAudio: "assets/demos/synthetic/k4/audio/mixture-w.wav",
