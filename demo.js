@@ -1,4 +1,4 @@
-const PLAYER_VERSION = "20261028-add-k4-match-013";
+const PLAYER_VERSION = "20261028-k4-match-query-order";
 
 let interactivePlayerCount = 0;
 
@@ -209,15 +209,6 @@ const syntheticScenes = [
     mixtureAudio: "assets/demos/synthetic/k4-match-013/audio/mixture-w.wav",
     queries: [
       {
-        id: "domestic-sounds",
-        label: "Domestic sounds",
-        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
-        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-gt-foa.wav",
-        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
-        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-predicted-foa.wav",
-        energy: "assets/demos/synthetic/k4-match-013/domestic-sounds-foa-energy.mp4",
-      },
-      {
         id: "bell",
         label: "Bell",
         groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
@@ -243,6 +234,15 @@ const syntheticScenes = [
         predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
         predictedAudio: "assets/demos/synthetic/k4-match-013/audio/knock-predicted-foa.wav",
         energy: "assets/demos/synthetic/k4-match-013/knock-foa-energy.mp4",
+      },
+      {
+        id: "domestic-sounds",
+        label: "Domestic sounds",
+        groundTruth: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        groundTruthAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-gt-foa.wav",
+        predicted: "assets/demos/synthetic/k4-match-013/mixture.webm",
+        predictedAudio: "assets/demos/synthetic/k4-match-013/audio/domestic-sounds-predicted-foa.wav",
+        energy: "assets/demos/synthetic/k4-match-013/domestic-sounds-foa-energy.mp4",
       },
     ],
   },
